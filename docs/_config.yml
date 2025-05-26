@@ -5,7 +5,7 @@ remote_theme: yousinix/portfolYOU@v1.0.0
 open_new_tab: true
 title: Hefler Dev
 description: Backend Developer · DevOps Engineer · Database Specialist
-url: "https://heflerdev.github.io"
+url: https://heflerdev.github.io
 
 ### Plugins ###
 plugins:
