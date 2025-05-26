@@ -1,10 +1,10 @@
 ### Site Settings ###
-baseurl: "/portfolYOU" # Change to empty quotes if you are hosting your site at <your-username>.github.io directly
-repository: yousinix/portfolYOU # Change to <your-username>/<your-username>.github.io (or remove it if you don't need remote projects)
+baseurl: "" # Site está em heflerdev.github.io, então mantemos vazio
+repository: heflerdev/heflerdev.github.io
 remote_theme: yousinix/portfolYOU
-open_new_tab: fals
-title: Hefler Dev
-description: Backend Developer · DevOps Engineer · Database Specialist
+open_new_tab: true
+title: Henrique Hefler
+description: Backend Developer · DevOps Engineer · Microservices & AWS Specialist
 url: "https://heflerdev.github.io"
 
 ### Plugins ###
@@ -12,35 +12,21 @@ plugins:
   - jemoji
 
 ### Navbar Settings ###
-nav_exclude: # The following paths are excluded from navbar
+nav_exclude:
   - pages/tags.html
   - pages/404.html
   - pages/index.md
-  - documentation/partials/** # For Documentation Only
+  - documentation/partials/**
 
 ### Author Info ###
 author:
-  name: Hefler
+  name: Henrique Hefler
   image: https://i.imgur.com/uyDNQnn.jpg
-  behance: your_username
-  # dribbble          : your_username
-  email: username@domain.com
-  facebook: your_username
-  github: your_username
-  # gitlab            : your_username
-  # instagram         : your_username
-  # kaggle            : your_username
-  linkedin: https://linkedin.com/in/heflerdev
-  medium: your_username
-  # soundcloud        : your_username
-  # spotify           : your_username
-  # stackoverflow     : your_user_id
-  # tumblr            : your_username.tumblr.com
-  # twitch            : your_username
-  twitter: your_username
-# vimeo             : your_username
-# youtube           : your_channel_name
-# keybase           : your_username
+  email: heflerdev@gmail.com
+  github: heflerdev
+  linkedin: heflerdev
+  twitter: heflerdev
+  # Adicione mais redes se quiser (ex: instagram, youtube, etc.)
 
 ### Posts ###
 permalink: /blog/:title
@@ -50,27 +36,26 @@ collections:
   projects:
     output: true
     permalink: /projects/:name
-  elements: # For Documentation Only
-    output: true # For Documentation Only
+  elements:
+    output: true
 
 ### Disqus ###
 disqus:
-  shortname: your-short-name-disqus # Your website Shortname on disqus
+  shortname: # Deixe vazio ou remova se não for usar comentários
 
 ### Analytics ###
 analytics:
-  enabled: false # Set true to enable analytics
+  enabled: true
   google:
-    tracking_id: your-google-tracking-id
+    tracking_id: G-XXXXXXXXXX # Substitua por seu código do Google Analytics
 
 ### Buy me a coffee ###
-# See https://www.buymeacoffee.com/
 buymeacoffee:
   enabled: false
-  username: your_username
-  color: "#007bff"
-  message: "Thank you for visiting." # Message to be displayed aside from the button for a few seconds.
-  description: "Support me on Buy me a coffee!"
+  username: heflerdev
+  color: "#d73a49"
+  message: "Thank you for visiting."
+  description: "Support my work!"
 
 ### Defaults for collections ###
 defaults:
@@ -79,16 +64,16 @@ defaults:
       type: "projects"
     values:
       layout: "page"
-  - scope: # For Documentation Only
-      path: "" # For Documentation Only
-      type: "elements" # For Documentation Only
-    values: # For Documentation Only
-      layout: "element" # For Documentation Only
+  - scope:
+      path: ""
+      type: "elements"
+    values:
+      layout: "element"
   - scope:
       path: ""
       type: "posts"
     values:
-      comments: false # Set to true to enable disqus comments
+      comments: false
 
 ### Exclude from processing ###
 exclude:
