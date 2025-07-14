@@ -1,17 +1,56 @@
-- title: Student, Harvard CS
-  from: 2014
-  to: 2018
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-- title: Software Engineer, Google, UK
-  from: 2018
+- title: Back End Developer, Good Software Dev, Texas, United States
+  from: 2022
   to: present
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  description:
+    Planning, development, and maintenance of software and microservices,
+    with a strong focus on TypeScript/JavaScript. Involved in the entire
+    application lifecycle, from architecture to deployment and ongoing support.
+    Experience in server management and leading project teams. Skilled in
+    analyzing and optimizing system performance, including diagnosing and
+    improving NoSQL databases, especially MongoDB.
+
+- title: Bachelor's Degree, CNEC - Campanha Nacional de Escolas da Comunidade
+  from: 2024
+  to: 2026
+  description: Bachelor's degree in Computer Systems Analysis/Analyst.
+
+- title: Certificate, Microverse
+  from: 2019
+  to: 2020
+  description:
+    Certification in Computer Software Engineering, with a focus on remote
+    collaborative development and full-stack engineering.
+
+- title: Full Stack Developer, Fidelizou.me, Rio Grande do Sul, Brazil
+  from: 2022
+  to: 2022
+  description:
+    Developed interfaces, troubleshot production code through AWS, worked
+    on backend systems with Node.js and frontend using Vue.js. Mentored and
+    supervised coworkers, reviewed pull requests, and updated legacy code.
+
+- title: Software Developer, Orulo, Brazil
+  from: 2021
+  to: 2022
+  description:
+    Planned and developed user interfaces, conducted code reviews, and
+    modernized legacy codebases to align with current development standards.
+
+- title: Auxiliary Electronic Technician, Konnel Tec, Brazil
+  from: 2019
+  to: 2020
+  description:
+    Repaired defective electronic devices, managed logistics and inventory
+    of components, and performed testing and diagnostics on circuit boards.
+
+- title: Auxiliary Process Analyst, Grupo Fallgatter, Cachoeirinha, Brazil
+  from: 2018
+  to: 2019
+  description:
+    Monitored and improved production processes by collecting and analyzing
+    data, and implementing optimized operational methods.
+
+- title: Technical Degree, Escola Técnica José Cézar de Mesquita
+  from: 2018
+  to: 2020
+  description: Technical education in Automation Engineering Technology.

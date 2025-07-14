@@ -1,11 +1,43 @@
-- name: HTML5/CSS3
-  percentage: 90
+- name: TypeScript / JavaScript
+  percentage: 100
+  color: primary
+
+- name: Node
+  percentage: 100
+  color: primary
+
+- name: MongoDB
+  percentage: 100
+  color: primary
+
+- name: Docker
+  percentage: 100
+  color: primary
+
+- name: Kubernetes
+  percentage: 50
+  color: primary
+
+- name: Microservices
+  percentage: 100
+  color: primary
+
+- name: Redis (BullMq, RabbitMq, etc...)
+  percentage: 100
+  color: primary
+
+- name: Java
+  percentage: 75
+  color: secondary
+
+- name: Rust
+  percentage: 50
+  color: secondary
+
+- name: Ruby and Ruby On Rails
+  percentage: 25
   color: danger
 
-- name: Go
-  percentage: 80
-  color:
-
-- name: Python
-  percentage: 70
-  color: secondary
+- name: Html5 / CSS3
+  percentage: 50
+  color: danger
