@@ -2,7 +2,7 @@
   percentage: 100
   color: primary
 
-- name: Node
+- name: Node.js / Express.js
   percentage: 100
   color: primary
 
@@ -10,19 +10,15 @@
   percentage: 100
   color: primary
 
-- name: Docker
-  percentage: 100
-  color: primary
-
-- name: Kubernetes
-  percentage: 50
-  color: primary
-
 - name: Microservices
   percentage: 100
   color: primary
 
-- name: Redis (BullMq, RabbitMq, etc...)
+- name: Docker
+  percentage: 100
+  color: primary
+
+- name: Redis (BullMQ, RabbitMQ, etc.)
   percentage: 100
   color: primary
 
@@ -30,14 +26,34 @@
   percentage: 75
   color: secondary
 
+- name: SQL / MySQL
+  percentage: 75
+  color: secondary
+
+- name: React / Frontend
+  percentage: 50
+  color: secondary
+
+- name: Kubernetes
+  percentage: 50
+  color: secondary
+
 - name: Rust
   percentage: 50
   color: secondary
 
-- name: Ruby and Ruby On Rails
+- name: Ruby / Ruby on Rails
   percentage: 25
   color: danger
 
-- name: Html5 / CSS3
+- name: Vue.js / Next.js
+  percentage: 25
+  color: danger
+
+- name: Python
+  percentage: 25
+  color: danger
+
+- name: HTML5 / CSS3
   percentage: 50
   color: danger

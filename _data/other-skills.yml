@@ -1,7 +1,39 @@
-- name: Adobe Photoshop
-  percentage: 95
-  color: info
+- name: Git / GitHub / GitLab / Bitbucket
+  percentage: 100
+  color: primary
 
-- name: Adobe Illustrator
-  percentage: 90
-  color: success
+- name: Linux / Unix SysAdmin
+  percentage: 100
+  color: primary
+
+- name: Bash
+  percentage: 100
+  color: primary
+
+- name: Nginx
+  percentage: 50
+  color: secondary
+
+- name: CI/CD (Jenkins, pipelines)
+  percentage: 100
+  color: primary
+
+- name: DevOps
+  percentage: 100
+  color: primary
+
+- name: Terraform
+  percentage: 25
+  color: danger
+
+- name: Ansible
+  percentage: 25
+  color: danger
+
+- name: AWS (EC2, S3, Lambda, IAM, RDS, DynamoDB, Aurora, CloudFormation, CloudWatch, Route 53, VPC)
+  percentage: 100
+  color: primary
+
+- name: HIPAA (Compliance / Security)
+  percentage: 50
+  color: secondary
