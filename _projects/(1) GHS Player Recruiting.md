@@ -10,7 +10,7 @@ description: End-to-end backend API development with scalable architecture, REST
 The **GHS Platform** was designed and developed as a **robust backend API** solution.  
 I led the **end-to-end development**, from **database architecture design** to **RESTful API implementation**, ensuring performance, scalability, and security.
 
-![preview](https://cdn-icons-png.flaticon.com/512/2721/2721299.png)
+![preview](https://media.licdn.com/dms/image/v2/D4D2DAQE2g6F2GZrLXA/profile-treasury-image-shrink_800_800/B4DZb6q48.G0Ac-/0/1747962270693?e=1757102400&v=beta&t=a-bLcXomf0AAk6qlWJABUu2tCQH6BJR4NMqbgRop5w8)
 
 ## Key Contributions
 
@@ -28,12 +28,8 @@ I led the **end-to-end development**, from **database architecture design** to *
 - **Docker** (containerized deployments)
 - **API Development & Database Administration**
 
-![search](https://cdn-icons-png.flaticon.com/512/992/992651.png)
+![search](https://media.licdn.com/dms/image/v2/D4D2DAQE2ywJsalJYOA/profile-treasury-image-shrink_800_800/B4DZb6q.6yHsAg-/0/1747962295852?e=1757102400&v=beta&t=jJWf7So_bo7E6_lMYs7I2Z2jo7xzVAGo9foq-SCORjQ)
 
 <p class="text-center">
 {% include elements/button.html link="https://github.com/yousinix/portfolYOU" text="Learn More" %}
-
 </p>
-
-<img src="https://media.licdn.com/dms/image/v2/D4D2DAQE2g6F2GZrLXA/profile-treasury-image-shrink_800_800/B4DZb6q48.G0Ac-/0/1747962270693?e=1757102400&v=beta&t=a-bLcXomf0AAk6qlWJABUu2tCQH6BJR4NMqbgRop5w8"/>
-<img src="https://media.licdn.com/dms/image/v2/D4D2DAQE2ywJsalJYOA/profile-treasury-image-shrink_800_800/B4DZb6q.6yHsAg-/0/1747962295852?e=1757102400&v=beta&t=jJWf7So_bo7E6_lMYs7I2Z2jo7xzVAGo9foq-SCORjQ"/>
