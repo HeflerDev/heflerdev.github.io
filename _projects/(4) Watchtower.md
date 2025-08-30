@@ -2,28 +2,28 @@
 name: Watchtower
 tools: [Node.js, SSH, Monitoring, Docker, Remote Management]
 image: https://github.com/user-attachments/assets/2c638a5b-8087-4294-90db-5c0627ed7bb6
-description: Monitoramento remoto de servidores via SSH, permitindo controle, análise de performance e administração de máquinas hosteadas de forma segura e eficiente.
+description: Remote server monitoring via SSH, enabling secure and efficient control, performance analysis, and host management.
 ---
 
 # Watchtower
 
-O **Watchtower** foi desenvolvido como uma **ferramenta de monitoramento e gerenciamento remoto de servidores**.  
-Ele estabelece **conexões SSH seguras** com as máquinas alvo, permitindo **monitoramento em tempo real**, **análise de desempenho** e **execução remota de comandos** para administração e troubleshooting.
+**Watchtower** was developed as a **remote server monitoring and management tool**.  
+It establishes **secure SSH connections** with target machines, enabling **real-time monitoring**, **performance analysis**, and **remote command execution** for administration and troubleshooting.
 
 ## Key Contributions
 
-- 🔗 Estabelecimento de **conexões SSH seguras** para acesso remoto e monitoramento de servidores.
-- 📊 Desenvolvimento de **monitoramento em tempo real** de métricas como CPU, memória, uso de disco e processos.
-- 🛠️ Implementação de **execução remota de comandos** e operações administrativas via interface controlada.
-- ☁️ **Containerização** da aplicação com Docker para portabilidade entre ambientes.
-- 🔐 Garantia de **gerenciamento seguro e confiável dos servidores**, prevenindo acessos não autorizados.
+- 🔗 Establishes **secure SSH connections** for remote access and server monitoring.  
+- 📊 Provides **real-time monitoring** of metrics such as CPU, memory, disk usage, and processes.  
+- 🛠️ Implements **remote command execution** and administrative operations through a controlled interface.  
+- ☁️ **Containerized deployment** with Docker for cross-environment portability.  
+- 🔐 Ensures **secure and reliable server management**, preventing unauthorized access.  
 
 ## Tech Stack
 
-- **Node.js** (backend e gerenciamento SSH)
-- **SSH** (conexões seguras e controle remoto)
-- **Docker** (deploy containerizado)
-- **Ferramentas de monitoramento e administração remota**
+- **Node.js** (backend and SSH management)  
+- **SSH** (secure connections and remote control)  
+- **Docker** (containerized deployment)  
+- **Remote monitoring and administration tools**  
 
 ![search](https://github.com/user-attachments/assets/2c638a5b-8087-4294-90db-5c0627ed7bb6)
 
