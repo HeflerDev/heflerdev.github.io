@@ -3,7 +3,7 @@
   color: primary
 
 - name: AWS (EC2, S3, Lambda, IAM, RDS, DynamoDB, Aurora, CloudFormation, CloudWatch, Route 53, VPC)
-  percentage: 100
+  percentage: 90
   color: primary
 
 - name: HIPAA (Compliance / Security)
