@@ -22,14 +22,6 @@
   percentage: 100
   color: primary
 
-- name: Terraform
-  percentage: 25
-  color: danger
-
-- name: Ansible
-  percentage: 25
-  color: danger
-
 - name: DevOps Practices
   percentage: 100
   color: primary
