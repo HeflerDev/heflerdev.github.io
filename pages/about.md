@@ -21,3 +21,5 @@ I have hands-on experience with **microservices architectures**, including conta
 {% include about/skills.html title="Other Skills" source=site.data.other-skills %}
 
 {% include about/timeline.html %}
+{% include about/timeline-professional.html %}
+{% include about/timeline-academic.html %}
