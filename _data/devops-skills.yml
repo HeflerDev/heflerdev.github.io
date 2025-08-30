@@ -1,0 +1,35 @@
+- name: Docker
+  percentage: 100
+  color: primary
+
+- name: Kubernetes
+  percentage: 50
+  color: secondary
+
+- name: Linux / Unix SysAdmin
+  percentage: 100
+  color: primary
+
+- name: Bash
+  percentage: 100
+  color: primary
+
+- name: Nginx
+  percentage: 50
+  color: secondary
+
+- name: CI/CD (Jenkins, pipelines)
+  percentage: 100
+  color: primary
+
+- name: Terraform
+  percentage: 25
+  color: danger
+
+- name: Ansible
+  percentage: 25
+  color: danger
+
+- name: DevOps Practices
+  percentage: 100
+  color: primary

@@ -16,6 +16,7 @@ My skills extend to cloud infrastructure (**AWS**), with a focus on **EC2** and 
 I have hands-on experience with **microservices architectures**, including container orchestration and service integrations. With my advanced **Linux** knowledge, I can operate in any environment, though I prefer **EC2** for the full control it offers—from deployment and monitoring to configuring tools like **Grafana** for real-time logging and metrics.
 
 {% include about/skills.html title="Programming Skills" source=site.data.programming-skills %}
+{% include about/skills.html title="DevOps Skills" source=site.data.devops-skills %}
 {% include about/skills.html title="Other Skills" source=site.data.other-skills %}
 
 {% include about/timeline.html %}
