@@ -3,12 +3,14 @@ name: RP1 Message Dispatch System (Microservice)
 tools: [Node.js, TypeScript, MongoDB, Redis, Microservices]
 image: https://media.licdn.com/dms/image/v2/D4D2DAQGrMFqc9anIAQ/profile-treasury-image-shrink_8192_8192/B4DZj3fU4.H4Ag-/0/1756498841609?e=1757106000&v=beta&t=KQQ3HZblubyobe5ymEkBPlr53dVxozHx_ZE29ZJsrj4
 description: High-performance microservice for real-time message dispatch, designed to handle 100M+ records with Node.js, MongoDB, and Redis.
+external_url: https://app.rp1.ai/
 ---
 
 # RP1 Message Dispatch System (Microservice)
 
 The **RP1 Message Dispatch System** is a **high-performance microservice** designed for **real-time message operations**.  
 It was built using advanced **Node.js features** such as **subprocesses, clustering, and modular architecture**, supporting massive throughput and horizontal scalability.
+**It's a private project so I cannot offer further details**
 
 ## Key Features
 
@@ -24,7 +26,3 @@ It was built using advanced **Node.js features** such as **subprocesses, cluster
 - **MongoDB** (optimized with custom indexes)
 - **Redis** (in-memory caching & processing)
 - **Microservices architecture**
-
-<p class="text-center">
-{% include elements/button.html link="https://github.com/yousinix/portfolYOU" text="Learn More" %}
-</p>

@@ -31,5 +31,5 @@ I led the **end-to-end development**, from **database architecture design** to *
 ![search](https://media.licdn.com/dms/image/v2/D4D2DAQE2ywJsalJYOA/profile-treasury-image-shrink_800_800/B4DZb6q.6yHsAg-/0/1747962295852?e=1757102400&v=beta&t=jJWf7So_bo7E6_lMYs7I2Z2jo7xzVAGo9foq-SCORjQ)
 
 <p class="text-center">
-{% include elements/button.html link="https://github.com/yousinix/portfolYOU" text="Learn More" %}
+{% include elements/button.html link="https://app.stangsfb.com/" text="Learn More" %}
 </p>
