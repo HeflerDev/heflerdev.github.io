@@ -4,7 +4,7 @@ repository: heflerdev/heflerdev.github.io # Change to <your-username>/<your-user
 remote_theme: yousinix/portfolYOU
 open_new_tab: true
 title: Hefler Dev
-description: Backend Developer · DevOps Engineer · Database Specialist
+description: Software Engineer | Full-Cycle Development | APIs, Microservices, Databases | TypeScript/JavaScript, Java, Rust | AWS | React
 url: https://heflerdev.github.io
 
 ### Plugins ###
