@@ -1,51 +1,11 @@
-- name: TypeScript / JavaScript
+- name: Git / GitHub / GitLab / Bitbucket
   percentage: 100
   color: primary
 
-- name: Node.js / Express.js
+- name: AWS (EC2, S3, Lambda, IAM, RDS, DynamoDB, Aurora, CloudFormation, CloudWatch, Route 53, VPC)
   percentage: 100
   color: primary
 
-- name: MongoDB
-  percentage: 100
-  color: primary
-
-- name: Microservices
-  percentage: 100
-  color: primary
-
-- name: Redis (BullMQ, RabbitMQ, etc.)
-  percentage: 100
-  color: primary
-
-- name: Java
-  percentage: 75
-  color: secondary
-
-- name: SQL / MySQL
-  percentage: 75
-  color: secondary
-
-- name: React / Frontend
+- name: HIPAA (Compliance / Security)
   percentage: 50
   color: secondary
-
-- name: Rust
-  percentage: 50
-  color: secondary
-
-- name: Ruby / Ruby on Rails
-  percentage: 25
-  color: danger
-
-- name: Vue.js / Next.js
-  percentage: 25
-  color: danger
-
-- name: Python
-  percentage: 25
-  color: danger
-
-- name: HTML5 / CSS3
-  percentage: 50
-  color: danger
