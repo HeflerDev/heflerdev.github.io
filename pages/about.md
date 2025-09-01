@@ -9,7 +9,7 @@ weight: 3
 
 Hi, I am **{{ site.author.name }}** :wave:
 
-**Software Engineer | Backend Developer | Full Stack & Full Cycle | APIs, Microservices, Cloud (AWS, Node.js, TS/JS, Rust, React)**  
+**Software Engineer - Backend Developer - Full Stack & Full Cycle - APIs, Microservices, Cloud (AWS, Node.js, TS/JS, Rust, React)**  
 
 Software Engineer with hands-on experience, having worked on both broad and specialized stacks, making me a:  
 
