@@ -5,7 +5,7 @@ style: fill
 color: warning
 description: Recommendations made by former coworkers towards my work and person
 ---
-Source: [atlassian](https://www.linkedin.com/in/heflerdev/details/recommendations/?detailScreenTabIndex=0)
+Source: [LinkedIn](https://www.linkedin.com/in/heflerdev/details/recommendations/?detailScreenTabIndex=0)
 ## Fabiano Frank
 **Full Stack Engineer | JavaScript, React, Ruby, Rails and SQL**  
 *Henrique's coworker from Feb 15, 2024*  
