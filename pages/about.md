@@ -9,11 +9,14 @@ weight: 3
 
 Hi, I am **{{ site.author.name }}** :wave:
 
-Backend Developer with 4+ years of experience. While I have worked in Frontend and Fullstack roles, my true expertise lies in Backend development: I specialize in building scalable architectures, developing robust systems, and efficiently managing high-volume data.
+**Software Engineer | Backend Developer | Full Stack & Full Cycle | APIs, Microservices, Cloud (AWS, Node.js, TS/JS, Rust, React)**  
 
-My skills extend to cloud infrastructure (**AWS**), with a focus on **EC2** and **ECS**, where I frequently deploy containerized applications using **Docker**. This combination allows me to handle high-demand environments—from heavy data processing to high user traffic—ensuring stability and performance.
+Software Engineer with hands-on experience, having worked on both broad and specialized stacks, making me a:  
 
-I have hands-on experience with **microservices architectures**, including container orchestration and service integrations. With my advanced **Linux** knowledge, I can operate in any environment, though I prefer **EC2** for the full control it offers—from deployment and monitoring to configuring tools like **Grafana** for real-time logging and metrics.
+- **Software Engineer**: 4+ years of experience working, collaborating, and managing teams and projects.  
+- **Full Cycle and Full Stack**: Able to create applications end-to-end.  
+- **Back End Focused**: Specialized in designing organized, scalable, high-performance, and highly available servers (APIs), distributed services (microservices), robust testing strategies (unit, integration), CI/CD pipelines, and resilient infrastructure (cloud, Unix).  
+
 
 {% include about/skills.html title="Main Skills" source=site.data.main-skills %}
 {% include about/skills.html title="Programming Skills" source=site.data.programming-skills %}
