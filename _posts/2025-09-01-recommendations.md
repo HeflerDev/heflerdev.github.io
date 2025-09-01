@@ -4,9 +4,8 @@ tags: [LinkedIn, recommendations]
 style: fill
 color: warning
 description: Recommendations made by former coworkers towards my work and person
-external_url: https://www.linkedin.com/in/heflerdev/details/recommendations/?detailScreenTabIndex=0
 ---
-
+Source: [atlassian](https://www.linkedin.com/in/heflerdev/details/recommendations/?detailScreenTabIndex=0)
 ## Fabiano Frank
 **Full Stack Engineer | JavaScript, React, Ruby, Rails and SQL**  
 *Henrique's coworker from Feb 15, 2024*  
