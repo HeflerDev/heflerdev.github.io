@@ -6,7 +6,7 @@ color: warning
 description: Recommendations made by former coworkers towards my work and person
 ---
 Source: [LinkedIn](https://www.linkedin.com/in/heflerdev/details/recommendations/?detailScreenTabIndex=0)
-## Recommendations
+# Recommendations
 
 ## Fabiano Frank
 **Full Stack Engineer | JavaScript, React, Ruby, Rails and SQL**  
