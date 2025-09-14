@@ -1,7 +1,7 @@
 ---
 name: Audience Lab
 tools: [Node.js, JavaScript, AWS, Docker, Microservices, Java]
-image: https://media.licdn.com/dms/image/v2/D4D2DAQFDQa1KoMSj6g/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1687733946726?e=1757167200&v=beta&t=s6ckWWVPBJIqb9sQEwGemuik1gFwaAnAck2d5Vnqjcs
+image: ../audiencelab.jpeg
 description: Audience generation and segmentation platform built with a microservices architecture, scalable infrastructure, and continuous feature evolution.
 ---
 

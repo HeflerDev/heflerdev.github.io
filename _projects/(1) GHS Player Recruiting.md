@@ -1,7 +1,7 @@
 ---
 name: GHS Platform
 tools: [Node.js, MongoDB, AWS, Docker, API Development]
-image: https://media.licdn.com/dms/image/sync/v2/D4D27AQGG9tZUsKK_pg/articleshare-shrink_800/B4DZb6qVFVGkAQ-/0/1747962122852?e=1757102400&v=beta&t=H_CR_PyGt4y1RFo3dsvJ8PE6JUuFfeoz5YB-z6d2wNs
+image: ../ghs.png
 description: End-to-end backend API development with scalable architecture, RESTful endpoints, and cloud deployment using AWS & Docker.
 ---
 
