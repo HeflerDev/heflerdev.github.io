@@ -3,13 +3,14 @@ name: Cover Badger
 tools: [JavaScript, Node.js, MongoDB, AWS, Docker, Kubernetes, Redis, API Development]
 image: ../coverbadger.png
 description: Backend API maintenance and enhancements, including database optimization, microservices improvements, RESTful endpoints, and cloud deployment with AWS, Docker and Kubernetes.
-external_url: https://coverbadger.com/
 ---
 
 # Cover Badger
 
 The **Cover Badger** project required ongoing **backend maintenance and system enhancements**.  
 I contributed to **improving database performance**, extending **microservices functionality**, and ensuring **reliable deployments** in the cloud.
+
+[Link to Website](https://coverbadger.com/)
 
 ## Key Contributions
 

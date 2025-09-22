@@ -12,6 +12,8 @@ The **RP1 Message Dispatch System** is a **high-performance microservice** desig
 It was built using advanced **Node.js features** such as **subprocesses, clustering, and modular architecture**, supporting massive throughput and horizontal scalability.
 **It's a private project so I cannot offer further details**
 
+[Link to Website](https://callprofitrocket.com/rocket-bookings/)
+
 ## Key Features
 
 - ⚡ **Real-time dispatch** of messages with high concurrency support.
@@ -26,3 +28,7 @@ It was built using advanced **Node.js features** such as **subprocesses, cluster
 - **MongoDB** (optimized with custom indexes)
 - **Redis** (in-memory caching & processing)
 - **Microservices architecture**
+- Docker
+- Kubernetes
+- Mongo
+

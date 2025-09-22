@@ -25,7 +25,11 @@ With its **microservices-based architecture** and scalable backend infrastructur
 ## Tech Stack
 
 - **Node.js** & **JavaScript**
+- **Typescript**
 - **Java** (backend services)
 - **AWS** (cloud hosting & services)
 - **Docker** (containerization)
+- Kubernetes (orquestration)
 - **Microservices architecture**
+- **Redis**
+- **RabbitMQ**
