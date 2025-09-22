@@ -3,7 +3,6 @@ name: RP1 Message Dispatch System (Microservice)
 tools: [Node.js, TypeScript, MongoDB, Redis, Microservices]
 image: ../rp1.jpeg
 description: High-performance microservice for real-time message dispatch, designed to handle 100M+ records with Node.js, MongoDB, and Redis.
-external_url: https://app.rp1.ai/
 ---
 
 # RP1 Message Dispatch System (Microservice)
