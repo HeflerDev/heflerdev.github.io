@@ -19,6 +19,4 @@ Software Engineer with hands-on experience, having worked on both broad and spec
 
 {% include about/skills.html title="Stacks" source=site.data.main-skills %}
 
-<!-- {% include about/skills.html title="DevOps Skills" source=site.data.devops-skills %} {% include about/skills.html title="Other Skills" source=site.data.other-skills %} -->
-
 {% include about/timeline.html %}
