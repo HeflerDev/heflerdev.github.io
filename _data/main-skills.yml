@@ -3,9 +3,13 @@
   color: primary
 
 - name: Frontend
-  percentage: 50
-  color: danger
+  percentage: 75
+  color: primary
 
 - name: DevOps / Cloud
-  percentage: 80
+  percentage: 100
+  color: primary
+
+- name: Mobile
+  percentage: 100
   color: primary
