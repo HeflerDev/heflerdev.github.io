@@ -17,7 +17,7 @@ Software Engineer with hands-on experience, having worked on both broad and spec
 - **Full Cycle and Full Stack**: Able to create applications end-to-end.
 - **Back End Focused**: Specialized in designing organized, scalable, high-performance, and highly available servers (APIs), distributed services (microservices), robust testing strategies (unit, integration), CI/CD pipelines, and resilient infrastructure (cloud, Unix).
 
-{% include about/skills.html title="Stacks" source=site.data.main-skills %} {% include about/skills.html title="Tools" source=site.data.programming-skills %}
+{% include about/skills.html title="Stacks" source=site.data.main-skills %} {% include about/tools.html title="Tools" source=site.data.programming-skills %}
 
 <!-- {% include about/skills.html title="DevOps Skills" source=site.data.devops-skills %} {% include about/skills.html title="Other Skills" source=site.data.other-skills %} -->
 
