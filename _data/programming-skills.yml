@@ -14,7 +14,7 @@
   percentage: 100
   color: primary
 
-- name: Redis (BullMQ, RabbitMQ, etc.)
+- name: Redis (BullMQ, Caching)
   percentage: 100
   color: primary
 
