@@ -2,9 +2,7 @@
   <h2 class="mb-3">{{ include.title }}</h2>
   <div class="d-flex flex-wrap gap-2">
     {% for skill in include.source %}
-      <span class="badge bg-{{ skill.color | default: "primary" }} px-3 py-2">
-        {{ skill.name }}
-      </span>
+    <span class="badge bg-primary rounded-pill me-2">{{ skill.name }}</span>
     {% endfor %}
   </div>
 </div>
