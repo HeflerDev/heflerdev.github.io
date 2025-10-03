@@ -2,22 +2,10 @@
   percentage: 100
   color: primary
 
-- name: DevOps / Cloud
-  percentage: 80
-  color: primary
-
-- name: Databases & Messaging
-  percentage: 80
-  color: secondary
-
-- name: Unit & Integration Tests
-  percentage: 70
-  color: secondary
-
 - name: Frontend
   percentage: 50
   color: danger
 
-- name: Compliance & Security (HIPAA, Best Practices)
-  percentage: 50
-  color: secondary
+- name: DevOps / Cloud
+  percentage: 80
+  color: primary

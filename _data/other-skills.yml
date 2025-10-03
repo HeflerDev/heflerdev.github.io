@@ -2,10 +2,58 @@
   percentage: 100
   color: primary
 
-- name: AWS (EC2, S3, Lambda, IAM, RDS, DynamoDB, Aurora, CloudFormation, CloudWatch, Route 53, VPC)
-  percentage: 90
-  color: primary
-
 - name: HIPAA (Compliance / Security)
   percentage: 50
   color: secondary
+
+- name: Java
+  percentage: 75
+  color: secondary
+
+- name: SQL / MySQL
+  percentage: 75
+  color: secondary
+
+- name: Rust
+  percentage: 50
+  color: secondary
+
+- name: Ruby / Ruby on Rails
+  percentage: 25
+  color: danger
+
+- name: Vue.js / Next.js
+  percentage: 25
+  color: danger
+
+- name: Angular
+  percentage: 25
+  color: danger
+
+- name: Python
+  percentage: 25
+  color: danger
+
+- name: HTML5 / CSS3
+  percentage: 50
+  color: danger
+
+- name: Kubernetes
+  percentage: 50
+  color: secondary
+
+- name: Linux / Unix SysAdmin
+  percentage: 100
+  color: primary
+
+- name: Bash
+  percentage: 100
+  color: primary
+
+- name: Nginx
+  percentage: 50
+  color: secondary
+
+- name: DevOps Practices
+  percentage: 100
+  color: primary

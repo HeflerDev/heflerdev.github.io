@@ -18,34 +18,22 @@
   percentage: 100
   color: primary
 
-- name: Java
-  percentage: 75
-  color: secondary
-
-- name: SQL / MySQL
-  percentage: 75
-  color: secondary
-
 - name: React / Frontend
   percentage: 50
   color: secondary
 
-- name: Rust
+- name: React Native / Mobile
   percentage: 50
   color: secondary
 
-- name: Ruby / Ruby on Rails
-  percentage: 25
-  color: danger
+- name: AWS (EC2, S3, Lambda, IAM, RDS, DynamoDB, Aurora, CloudFormation, CloudWatch, Route 53, VPC)
+  percentage: 90
+  color: primary
 
-- name: Vue.js / Next.js
-  percentage: 25
-  color: danger
+- name: Docker
+  percentage: 100
+  color: primary
 
-- name: Python
-  percentage: 25
-  color: danger
-
-- name: HTML5 / CSS3
-  percentage: 50
-  color: danger
+- name: CI/CD (GitHub Workflows, Jenkins, pipelines)
+  percentage: 100
+  color: primary
