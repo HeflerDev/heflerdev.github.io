@@ -7,9 +7,8 @@ Personal portfolio — React + Vite SPA with a terminal / engineer-brutal aesthe
 ## Stack
 
 - React 19 + TypeScript + Vite
-- Framer Motion (section motion)
-- Matter.js (hero physics chips)
-- GitHub Pages via `/docs` build output
+- Framer Motion · Matter.js
+- GitHub Pages (production files at repo root)
 
 ## Develop
 
@@ -18,25 +17,12 @@ npm install
 npm run dev
 ```
 
-## Build
+`index.source.html` is the Vite entry. `npm run build` writes `docs/` and also copies the production site to the repo root (`index.html`, `assets/`, `images/`) so Pages can serve from branch `master` / `.`
+
+## Build / publish
 
 ```bash
-npm run build   # writes production site to docs/
-npm run preview
+npm run build
 ```
 
-## Deploy (GitHub Pages)
-
-The site is published from the **`docs/`** folder on `master`.
-
-**One-time setup** (this is what was breaking before):
-
-1. GitHub → **Settings → Pages**
-2. **Source:** Deploy from a branch
-3. **Branch:** `master`
-4. **Folder:** **`/docs`** ← not `/` (root)
-5. Save
-
-On every push to `master`, Actions rebuilds `docs/`. You can also run `npm run build` locally and commit `docs/`.
-
-If Folder stays on `/` (root), GitHub serves the Vite *source* `index.html` and the browser errors on `/src/main.tsx`.
+Commit the updated root `index.html` + `assets/` + `images/` (or let Actions do it on push to `master`).

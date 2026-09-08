@@ -4,10 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "cp index.source.html index.html",
     "dev": "vite",
+    "prebuild": "cp index.source.html index.html",
     "build": "tsc -b && vite build",
+    "postbuild": "rm -rf assets && cp docs/index.html index.html && cp -R docs/assets assets && cp docs/favicon.svg favicon.svg && cp docs/.nojekyll .nojekyll && rm -rf images && cp -R docs/images images",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview --outDir docs",
+    "pages": "bash scripts/publish-pages.sh"
   },
   "dependencies": {
     "framer-motion": "^13.2.0",
