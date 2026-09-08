@@ -1,11 +1,28 @@
-<div align="center">
-  <h1>portfolYOU</h1>
-  <i>A beautiful portfolio Jekyll theme that works with GitHub Pages.</i>
+# Hefler Dev
 
-  <a href="https://yousinix.github.io/portfolYOU/">Live Demo</a>
-  •
-  <a href="https://yousinix.github.io/portfolYOU/docs/">Documentation</a>
+Personal portfolio — React + Vite SPA with a terminal / engineer-brutal aesthetic.
 
-  <a href="https://yousinix.github.io/portfolYOU"><img src="screenshot.gif"></a>
-  <sub><sup>© 2024 portfolYOU, licensed under the <a href="./LICENSE">MIT License</a>.</sup></sub>
-</div>
+**Live:** https://heflerdev.github.io
+
+## Stack
+
+- React 19 + TypeScript + Vite
+- Framer Motion (section motion)
+- Matter.js (hero physics chips)
+- GitHub Pages via Actions
+
+## Develop
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+npm run preview
+```
+
+Deploy runs automatically on push to `master` (`.github/workflows/deploy.yml`). In the repo settings, set **Pages → Source** to **GitHub Actions**.
