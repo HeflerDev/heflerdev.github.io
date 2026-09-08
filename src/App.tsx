@@ -13,7 +13,14 @@ export default function App() {
   const [activeId, setActiveId] = useState<string | undefined>()
 
   useEffect(() => {
-    const nodes = sectionIds
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [])
+
+  useEffect(() => {
+    const nodes = ['top', ...sectionIds]
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el))
 
@@ -22,11 +29,11 @@ export default function App() {
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible[0]?.target.id) {
-          setActiveId(visible[0].target.id)
-        }
+        const id = visible[0]?.target.id
+        if (id && id !== 'top') setActiveId(id)
+        if (id === 'top') setActiveId(undefined)
       },
-      { rootMargin: '-30% 0px -50% 0px', threshold: [0.1, 0.35, 0.6] },
+      { rootMargin: '-35% 0px -45% 0px', threshold: [0.15, 0.4, 0.65] },
     )
 
     nodes.forEach((n) => observer.observe(n))
@@ -39,13 +46,9 @@ export default function App() {
       <main>
         <Hero />
         <About />
-        <hr className="rule" />
         <Projects />
-        <hr className="rule" />
         <Experience />
-        <hr className="rule" />
         <Recommendations />
-        <hr className="rule" />
         <Contact />
       </main>
       <Footer />

@@ -40,14 +40,17 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
     })
 
     const wallOpts = { isStatic: true, render: { visible: false } }
+    const chipH = mobile ? 24 : 28
+    // Mobile: keep chips parked in a shelf above the title (hero copy sits at the bottom)
+    const getFloorY = () =>
+      mobile ? Math.min(120, chipH * 2 + 56) : height + 30
 
-    const floor = Bodies.rectangle(width / 2, height + 30, width + 200, 60, wallOpts)
+    const floor = Bodies.rectangle(width / 2, getFloorY(), width + 200, 60, wallOpts)
     const left = Bodies.rectangle(-30, height / 2, 60, height + 200, wallOpts)
     const right = Bodies.rectangle(width + 30, height / 2, 60, height + 200, wallOpts)
     const ceiling = Bodies.rectangle(width / 2, -40, width + 200, 80, wallOpts)
 
     const labels = mobile ? physicsLabels.slice(0, 6) : [...physicsLabels]
-    const chipH = mobile ? 24 : 28
     const gap = mobile ? 8 : 14
 
     const placeRow = (
@@ -81,15 +84,16 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
       })
     }
 
-    // Wrap into two centered rows on narrow screens
+    // Wrap into two centered rows on narrow screens (spawn just above the shelf)
     const mid = Math.ceil(labels.length / 2)
     const needWrap = mobile || width < 720
+    const spawnY = mobile ? 18 : 36
     const chipMeta = needWrap
       ? [
-          ...placeRow(labels.slice(0, mid), 28, 0),
-          ...placeRow(labels.slice(mid), 28 + chipH + 10, mid),
+          ...placeRow(labels.slice(0, mid), spawnY, 0),
+          ...placeRow(labels.slice(mid), spawnY + chipH + 10, mid),
         ]
-      : placeRow(labels, 36, 0)
+      : placeRow(labels, spawnY, 0)
 
     Composite.add(engine.world, [
       floor,
@@ -134,8 +138,9 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
       auto.tick += 1
       if (mobile) {
         const t = auto.tick * 0.015
-        auto.x = width * 0.5 + Math.sin(t) * width * 0.3
-        auto.y = height * 0.4 + Math.cos(t * 1.35) * height * 0.16
+        // Keep the ambient shove inside the upper shelf so chips stay above the title
+        auto.x = width * 0.5 + Math.sin(t) * width * 0.28
+        auto.y = Math.min(getFloorY() - 28, 48 + Math.cos(t * 1.35) * 18)
       }
 
       const sources = mobile
@@ -194,7 +199,7 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
       render.bounds.max.x = width
       render.bounds.max.y = height
       ctxSafeSetTransform(render.context, pr)
-      Body.setPosition(floor, { x: width / 2, y: height + 30 })
+      Body.setPosition(floor, { x: width / 2, y: getFloorY() })
       Body.setPosition(left, { x: -30, y: height / 2 })
       Body.setPosition(right, { x: width + 30, y: height / 2 })
       Body.setPosition(ceiling, { x: width / 2, y: -40 })

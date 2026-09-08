@@ -10,12 +10,12 @@ export function Contact() {
 
   return (
     <section className="section" id="contact">
-      <Reveal>
+      <Reveal speed={3.2} mode="parallel">
         <p className="section-label">{contact.label}</p>
         <h2 className="section-title">{contact.title}</h2>
       </Reveal>
 
-      <Reveal delay={0.08}>
+      <Reveal delay={0.02} speed={4} mode="parallel">
         <div className={styles.block}>
           <p className={styles.lead}>{contact.lead}</p>
 

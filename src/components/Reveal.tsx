@@ -7,10 +7,13 @@ type Props = {
   children: ReactNode
   className?: string
   delay?: number
+  /** Higher = faster typing. Default 1. */
+  speed?: number
+  /** parallel types all text nodes at once (much snappier for dense blocks). */
+  mode?: 'sequential' | 'parallel'
 }
 
-const GLYPHS =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@*<>/\\|+='
+const CARET = '▌'
 
 function collectTextNodes(root: HTMLElement) {
   const nodes: Text[] = []
@@ -35,44 +38,43 @@ function collectTextNodes(root: HTMLElement) {
   return nodes
 }
 
-function scrambleNode(
+function msPerChar(length: number, speed: number) {
+  const base = Math.max(3, Math.min(12, 380 / Math.max(length, 10)))
+  return base / Math.max(speed, 0.5)
+}
+
+function typeNode(
   node: Text,
   original: string,
   startAt: number,
-  duration: number,
   now: number,
+  speed: number,
+  showCaret: boolean,
 ) {
   if (now < startAt) {
-    let out = ''
-    for (const ch of original) {
-      out += /\s/.test(ch) ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0]
-    }
-    node.nodeValue = out
+    node.nodeValue = ''
     return false
   }
 
-  const progress = Math.min(1, (now - startAt) / duration)
-  const resolved = Math.floor(progress * original.length)
-  let out = ''
-
-  for (let i = 0; i < original.length; i++) {
-    const ch = original[i]
-    if (/\s/.test(ch)) {
-      out += ch
-      continue
-    }
-    if (i < resolved) {
-      out += ch
-    } else {
-      out += GLYPHS[(Math.random() * GLYPHS.length) | 0]
-    }
-  }
-
-  node.nodeValue = out
-  return progress >= 1
+  const charMs = msPerChar(original.length, speed)
+  const typed = Math.min(
+    original.length,
+    Math.floor((now - startAt) / charMs),
+  )
+  const done = typed >= original.length
+  const caret =
+    !done && showCaret && Math.floor(now / 320) % 2 === 0 ? CARET : ''
+  node.nodeValue = original.slice(0, typed) + caret
+  return done
 }
 
-export function Reveal({ children, className, delay = 0 }: Props) {
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  speed = 1.6,
+  mode = 'sequential',
+}: Props) {
   const rootRef = useRef<HTMLDivElement>(null)
   const sourceRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
@@ -97,7 +99,7 @@ export function Reveal({ children, className, delay = 0 }: Props) {
     const stage = stageRef.current
     if (!source || !stage) return
 
-    const playKey = `${locale}:${delay}`
+    const playKey = `${locale}:${delay}:${speed}:${mode}`
     if (playedFor.current === playKey) return
     if (!inView) return
 
@@ -109,7 +111,6 @@ export function Reveal({ children, className, delay = 0 }: Props) {
       return
     }
 
-    // Animate on a clone so React re-renders can't clobber glyphs
     stage.innerHTML = source.innerHTML
     stage.hidden = false
     source.hidden = true
@@ -118,33 +119,60 @@ export function Reveal({ children, className, delay = 0 }: Props) {
     const map = new Map<Text, string>()
     for (const node of nodes) {
       map.set(node, node.nodeValue ?? '')
+      node.nodeValue = ''
+    }
+
+    const schedule: { node: Text; original: string; startAt: number }[] = []
+    let cursor = delay * 1000
+
+    if (mode === 'parallel') {
+      for (const [node, original] of map) {
+        schedule.push({ node, original, startAt: cursor })
+      }
+    } else {
+      for (const [node, original] of map) {
+        schedule.push({ node, original, startAt: cursor })
+        cursor += original.length * msPerChar(original.length, speed) + 28
+      }
     }
 
     let raf = 0
     let startedAt = 0
-    const delayMs = delay * 1000
     let cancelled = false
 
     const frame = (ts: number) => {
       if (cancelled) return
       if (!startedAt) startedAt = ts
       const now = ts - startedAt
-      let allDone = true
-      let nodeIndex = 0
 
-      for (const [node, original] of map) {
-        const startAt = delayMs + nodeIndex * 50
-        const duration = Math.min(1000, 320 + original.trim().length * 16)
-        const done = scrambleNode(node, original, startAt, duration, now)
-        if (!done) allDone = false
-        nodeIndex += 1
+      let allDone = true
+      let activeIndex = -1
+
+      for (let i = 0; i < schedule.length; i++) {
+        const item = schedule[i]
+        const done = typeNode(
+          item.node,
+          item.original,
+          item.startAt,
+          now,
+          speed,
+          false,
+        )
+        if (!done) {
+          allDone = false
+          if (activeIndex < 0) activeIndex = i
+        }
+      }
+
+      if (activeIndex >= 0) {
+        const item = schedule[activeIndex]
+        typeNode(item.node, item.original, item.startAt, now, speed, true)
       }
 
       if (allDone) {
         for (const [node, original] of map) {
           node.nodeValue = original
         }
-        // Hand control back to React tree
         source.hidden = false
         stage.hidden = true
         stage.innerHTML = ''
@@ -166,7 +194,7 @@ export function Reveal({ children, className, delay = 0 }: Props) {
         stage.innerHTML = ''
       }
     }
-  }, [inView, reduced, delay, locale])
+  }, [inView, reduced, delay, locale, speed, mode])
 
   return (
     <div ref={rootRef} className={className}>

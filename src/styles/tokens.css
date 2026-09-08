@@ -28,7 +28,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-h) + 1rem);
+  scroll-padding-top: var(--nav-h);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -113,9 +113,22 @@ button,
 }
 
 .section {
-  padding: clamp(4rem, 10vw, 7rem) var(--gutter);
+  box-sizing: border-box;
+  width: 100%;
   max-width: var(--max);
   margin: 0 auto;
+  padding: clamp(3rem, 8vw, 5rem) var(--gutter);
+  min-height: calc(100svh - var(--nav-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-top: 1px solid var(--line);
+}
+
+@supports (justify-content: safe center) {
+  .section {
+    justify-content: safe center;
+  }
 }
 
 .section-label {
@@ -207,7 +220,8 @@ button,
   }
 
   .section {
-    padding: 3.25rem var(--gutter);
+    padding: 2.75rem var(--gutter);
+    min-height: calc(100svh - var(--nav-h));
   }
 
   .section-title {
