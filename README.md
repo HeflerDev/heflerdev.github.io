@@ -9,7 +9,7 @@ Personal portfolio — React + Vite SPA with a terminal / engineer-brutal aesthe
 - React 19 + TypeScript + Vite
 - Framer Motion (section motion)
 - Matter.js (hero physics chips)
-- GitHub Pages via Actions
+- GitHub Pages via `/docs` build output
 
 ## Develop
 
@@ -21,17 +21,22 @@ npm run dev
 ## Build
 
 ```bash
-npm run build
+npm run build   # writes production site to docs/
 npm run preview
 ```
 
-Deploy runs automatically on push to `master` (`.github/workflows/deploy.yml`).
+## Deploy (GitHub Pages)
 
-**Required once** in the repo on GitHub:
+The site is published from the **`docs/`** folder on `master`.
 
-1. **Settings → Pages → Build and deployment → Source** → choose **GitHub Actions** (not “Deploy from a branch”).
-2. Open **Actions**, run **Deploy to GitHub Pages** (or push again).
-3. Wait for the green check, then hard-refresh https://heflerdev.github.io
+**One-time setup** (this is what was breaking before):
 
-If Source stays on the `master` branch, GitHub serves the Vite *source* `index.html` (`/src/main.tsx`) and the browser blocks it (MIME error).
+1. GitHub → **Settings → Pages**
+2. **Source:** Deploy from a branch
+3. **Branch:** `master`
+4. **Folder:** **`/docs`** ← not `/` (root)
+5. Save
 
+On every push to `master`, Actions rebuilds `docs/`. You can also run `npm run build` locally and commit `docs/`.
+
+If Folder stays on `/` (root), GitHub serves the Vite *source* `index.html` and the browser errors on `/src/main.tsx`.
