@@ -83,3 +83,25 @@
   text-transform: uppercase;
   color: var(--danger);
 }
+
+@media (max-width: 768px) {
+  .item {
+    padding: 1.35rem 0;
+    gap: 0.9rem;
+  }
+
+  .thumb {
+    max-height: 180px;
+    width: 100%;
+  }
+
+  .summary {
+    font-size: 0.88rem;
+  }
+
+  .links a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}

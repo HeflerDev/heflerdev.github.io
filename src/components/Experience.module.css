@@ -62,3 +62,22 @@
 .filters span[data-active='true'] {
   color: var(--accent);
 }
+
+@media (max-width: 768px) {
+  .track {
+    margin-left: 0.15rem;
+    padding-left: 1.15rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .desc {
+    font-size: 0.88rem;
+  }
+
+  .item {
+    padding-bottom: 1.5rem;
+  }
+}

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { site } from '../data/site'
 import { useLocale } from '../i18n/context'
+import { useCoarsePointer } from '../hooks/useCoarsePointer'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { CursorAura } from './CursorAura'
 import { PhysicsCanvas } from './PhysicsCanvas'
@@ -8,6 +9,7 @@ import styles from './Hero.module.css'
 
 export function Hero() {
   const reduced = useReducedMotion()
+  const mobile = useCoarsePointer()
   const { t } = useLocale()
 
   return (
@@ -16,8 +18,8 @@ export function Hero() {
         <div className={styles.hero__static} aria-hidden="true" />
       ) : (
         <>
-          <PhysicsCanvas enabled />
-          <CursorAura enabled />
+          <PhysicsCanvas enabled mobile={mobile} />
+          <CursorAura enabled mobile={mobile} />
         </>
       )}
 

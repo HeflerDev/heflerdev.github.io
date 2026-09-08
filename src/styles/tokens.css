@@ -150,7 +150,9 @@ button,
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  min-height: 44px;
   padding: 0.7rem 1.15rem;
   border: 1px solid var(--accent);
   background: transparent;
@@ -163,6 +165,7 @@ button,
     background 0.2s ease,
     color 0.2s ease,
     border-color 0.2s ease;
+  touch-action: manipulation;
 }
 
 .btn:hover {
@@ -186,4 +189,33 @@ button,
   border: 0;
   border-top: 1px solid var(--line);
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 4.75rem;
+    --gutter: 1.1rem;
+    --grid: 36px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  body::before {
+    opacity: 0.22;
+  }
+
+  .section {
+    padding: 3.25rem var(--gutter);
+  }
+
+  .section-title {
+    font-size: clamp(1.55rem, 7vw, 2.1rem);
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 20rem;
+  }
 }

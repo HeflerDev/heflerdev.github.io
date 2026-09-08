@@ -55,3 +55,17 @@
   margin: 1.5rem 0 0;
   font-size: 0.8rem;
 }
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.1rem 0;
+  }
+
+  .quote {
+    font-size: 0.85rem;
+  }
+
+  .role {
+    font-size: 0.75rem;
+  }
+}

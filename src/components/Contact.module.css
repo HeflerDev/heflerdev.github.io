@@ -47,3 +47,21 @@
 .val:hover {
   color: var(--accent);
 }
+
+@media (max-width: 768px) {
+  .block {
+    padding: 1.25rem 1.1rem;
+  }
+
+  .channels li {
+    gap: 0.2rem;
+    padding: 0.35rem 0;
+  }
+
+  .val {
+    word-break: break-word;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
