@@ -5,7 +5,7 @@ type Props = {
   enabled: boolean
 }
 
-type TrailPoint = { x: number; y: number; life: number }
+type Ripple = { x: number; y: number; born: number }
 
 export function CursorAura({ enabled }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -25,10 +25,11 @@ export function CursorAura({ enabled }: Props) {
     let raf = 0
     let running = true
 
-    const mouse = { x: -9999, y: -9999, inside: false }
+    const mouse = { x: 0, y: 0, inside: false, moved: false }
     const cursor = { x: 0, y: 0 }
-    const trail: TrailPoint[] = []
+    const ripples: Ripple[] = []
     let tick = 0
+    let lastRippleAt = 0
 
     const resize = () => {
       const rect = parent.getBoundingClientRect()
@@ -40,6 +41,12 @@ export function CursorAura({ enabled }: Props) {
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      if (!mouse.moved) {
+        mouse.x = width * 0.55
+        mouse.y = height * 0.35
+        cursor.x = mouse.x
+        cursor.y = mouse.y
+      }
     }
 
     const onMove = (e: MouseEvent) => {
@@ -48,6 +55,13 @@ export function CursorAura({ enabled }: Props) {
       mouse.y = e.clientY - rect.top
       mouse.inside =
         mouse.x >= 0 && mouse.y >= 0 && mouse.x <= width && mouse.y <= height
+      mouse.moved = true
+
+      if (mouse.inside && tick - lastRippleAt > 8) {
+        ripples.push({ x: mouse.x, y: mouse.y, born: tick })
+        if (ripples.length > 10) ripples.shift()
+        lastRippleAt = tick
+      }
     }
 
     const onLeave = () => {
@@ -58,126 +72,80 @@ export function CursorAura({ enabled }: Props) {
       if (!running) return
       tick += 1
 
-      cursor.x += (mouse.x - cursor.x) * 0.18
-      cursor.y += (mouse.y - cursor.y) * 0.18
-
-      if (mouse.inside && tick % 2 === 0) {
-        trail.push({ x: cursor.x, y: cursor.y, life: 1 })
-        if (trail.length > 28) trail.shift()
-      }
-
-      for (const p of trail) p.life *= 0.92
-      while (trail.length && trail[0].life < 0.04) trail.shift()
+      cursor.x += (mouse.x - cursor.x) * 0.16
+      cursor.y += (mouse.y - cursor.y) * 0.16
 
       ctx.clearRect(0, 0, width, height)
 
-      if (!mouse.inside && trail.length === 0) {
-        raf = requestAnimationFrame(draw)
-        return
-      }
+      const cx = cursor.x
+      const cy = cursor.y
+      const t = tick * 0.045
 
-      // Soft amber spotlight under cursor
-      if (mouse.inside) {
-        const glow = ctx.createRadialGradient(
-          cursor.x,
-          cursor.y,
-          0,
-          cursor.x,
-          cursor.y,
-          140,
-        )
-        glow.addColorStop(0, 'rgba(245, 166, 35, 0.16)')
-        glow.addColorStop(0.45, 'rgba(245, 166, 35, 0.05)')
-        glow.addColorStop(1, 'rgba(245, 166, 35, 0)')
-        ctx.fillStyle = glow
-        ctx.beginPath()
-        ctx.arc(cursor.x, cursor.y, 140, 0, Math.PI * 2)
-        ctx.fill()
-      }
+      const rowStep = 28
+      const colStep = 14
+      ctx.lineWidth = 1
 
-      // Trail polyline
-      if (trail.length > 1) {
+      for (let y = 0; y <= height + rowStep; y += rowStep) {
         ctx.beginPath()
-        ctx.moveTo(trail[0].x, trail[0].y)
-        for (let i = 1; i < trail.length; i++) {
-          ctx.lineTo(trail[i].x, trail[i].y)
+        let first = true
+        for (let x = 0; x <= width + colStep; x += colStep) {
+          const dx = x - cx
+          const dy = y - cy
+          const dist = Math.hypot(dx, dy)
+          const influence = Math.exp(-dist * 0.0045)
+          const ambient = Math.sin(x * 0.018 + t) * 3.5
+          const mouseWave = Math.sin(dist * 0.035 - t * 2.2) * 16 * influence
+          const py = y + ambient + mouseWave
+
+          if (first) {
+            ctx.moveTo(x, py)
+            first = false
+          } else {
+            ctx.lineTo(x, py)
+          }
         }
-        ctx.strokeStyle = 'rgba(245, 166, 35, 0.35)'
+        const edgeFade = 0.1 + 0.35 * (1 - Math.abs(y / height - 0.45))
+        ctx.strokeStyle = `rgba(245, 166, 35, ${0.045 + edgeFade * 0.04})`
+        ctx.stroke()
+      }
+
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const r = ripples[i]
+        const age = tick - r.born
+        const radius = age * 2.4
+        const alpha = Math.max(0, 0.35 - age * 0.008)
+        if (alpha <= 0.01) {
+          ripples.splice(i, 1)
+          continue
+        }
+        ctx.beginPath()
+        ctx.arc(r.x, r.y, radius, 0, Math.PI * 2)
+        ctx.strokeStyle = `rgba(245, 166, 35, ${alpha})`
         ctx.lineWidth = 1.25
         ctx.stroke()
 
-        for (const p of trail) {
-          ctx.fillStyle = `rgba(245, 166, 35, ${0.55 * p.life})`
-          ctx.fillRect(p.x - 1, p.y - 1, 2, 2)
-        }
+        ctx.beginPath()
+        ctx.arc(r.x, r.y, radius * 0.55, 0, Math.PI * 2)
+        ctx.strokeStyle = `rgba(232, 230, 225, ${alpha * 0.35})`
+        ctx.lineWidth = 1
+        ctx.stroke()
       }
 
-      if (mouse.inside) {
-        const x = cursor.x
-        const y = cursor.y
-        const pulse = 18 + Math.sin(tick * 0.08) * 2
-
-        // Outer rotating brackets (engineer reticle)
-        ctx.save()
-        ctx.translate(x, y)
-        ctx.rotate(tick * 0.012)
-        ctx.strokeStyle = 'rgba(245, 166, 35, 0.7)'
-        ctx.lineWidth = 1
-        const arm = pulse + 10
-        for (const [cx, cy, dx] of [
-          [-arm, -arm, 1],
-          [arm, -arm, -1],
-          [-arm, arm, 1],
-          [arm, arm, -1],
-        ] as const) {
-          ctx.beginPath()
-          ctx.moveTo(cx, cy)
-          ctx.lineTo(cx + dx * 12, cy)
-          ctx.moveTo(cx, cy)
-          ctx.lineTo(cx, cy + (cy < 0 ? 12 : -12))
-          ctx.stroke()
-        }
-        ctx.restore()
-
-        // Inner crosshair
-        ctx.strokeStyle = 'rgba(232, 230, 225, 0.55)'
-        ctx.lineWidth = 1
+      if (mouse.inside || mouse.moved) {
+        const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, 220)
+        glow.addColorStop(0, 'rgba(245, 166, 35, 0.1)')
+        glow.addColorStop(0.4, 'rgba(245, 166, 35, 0.03)')
+        glow.addColorStop(1, 'rgba(245, 166, 35, 0)')
+        ctx.fillStyle = glow
         ctx.beginPath()
-        ctx.moveTo(x - 14, y)
-        ctx.lineTo(x - 4, y)
-        ctx.moveTo(x + 4, y)
-        ctx.lineTo(x + 14, y)
-        ctx.moveTo(x, y - 14)
-        ctx.lineTo(x, y - 4)
-        ctx.moveTo(x, y + 4)
-        ctx.lineTo(x, y + 14)
-        ctx.stroke()
-
-        // Center dot
-        ctx.fillStyle = '#f5a623'
-        ctx.fillRect(x - 1.5, y - 1.5, 3, 3)
-
-        // Coordinate readout
-        const label = `x:${String(Math.round(mouse.x)).padStart(4, '0')}  y:${String(Math.round(mouse.y)).padStart(4, '0')}`
-        ctx.font = '10px "IBM Plex Mono", monospace'
-        ctx.fillStyle = 'rgba(245, 166, 35, 0.85)'
-        ctx.textAlign = 'left'
-        ctx.textBaseline = 'top'
-        ctx.fillText(label, x + 18, y + 16)
-
-        // Scanning ring
-        ctx.beginPath()
-        ctx.arc(x, y, pulse, 0, Math.PI * 2)
-        ctx.strokeStyle = 'rgba(245, 166, 35, 0.35)'
-        ctx.stroke()
+        ctx.arc(cx, cy, 220, 0, Math.PI * 2)
+        ctx.fill()
       }
 
       raf = requestAnimationFrame(draw)
     }
 
     resize()
-    cursor.x = width / 2
-    cursor.y = height / 3
     window.addEventListener('resize', resize)
     window.addEventListener('mousemove', onMove)
     parent.addEventListener('mouseleave', onLeave)
