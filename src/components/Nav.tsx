@@ -20,8 +20,7 @@ export function Nav({ activeId }: Props) {
   return (
     <nav className={styles.nav} aria-label={t.nav.aria} data-site-nav>
       <a className={styles.nav__brand} href="#top">
-        <span className={styles.nav__prompt}>~/</span>
-        <span>hefler</span>
+        heflerdev.github.io
       </a>
       <div className={styles.nav__right}>
         <ul className={styles.nav__links}>

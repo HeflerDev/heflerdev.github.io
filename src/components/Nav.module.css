@@ -20,9 +20,14 @@
   gap: 0.35rem;
   color: var(--fg);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
   letter-spacing: 0.02em;
   flex-shrink: 0;
+  max-width: min(52vw, 14rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .nav__brand:hover {
