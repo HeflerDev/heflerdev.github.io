@@ -41,8 +41,8 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
 
     const wallOpts = { isStatic: true, render: { visible: false } }
     const chipH = mobile ? 24 : 28
-    // Keep chips in the top rack so they never invade the title zone
-    const getFloorY = () => Math.min(mobile ? 120 : 132, chipH * 2 + (mobile ? 56 : 64))
+    // Floor sits at the bottom of the rack (terminal zone) for more play room
+    const getFloorY = () => height + 24
 
     const floor = Bodies.rectangle(width / 2, getFloorY(), width + 200, 60, wallOpts)
     const left = Bodies.rectangle(-30, height / 2, 60, height + 200, wallOpts)
@@ -137,7 +137,7 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
       const t = auto.tick * 0.015
       // Ambient drift stays inside the rack shelf
       auto.x = width * 0.5 + Math.sin(t) * width * 0.28
-      auto.y = Math.min(getFloorY() - 28, 48 + Math.cos(t * 1.35) * 18)
+      auto.y = height * 0.45 + Math.cos(t * 1.35) * height * 0.2
 
       const sources = pointer.down
         ? [{ x: pointer.x, y: pointer.y, radius: mobile ? 200 : 180, strength: 0.003 }]

@@ -2,7 +2,7 @@
   position: relative;
   min-height: calc(100svh - var(--nav-h));
   display: grid;
-  grid-template-rows: minmax(150px, 26vh) minmax(0, 1fr);
+  grid-template-rows: minmax(210px, 38vh) minmax(0, 1fr);
   padding: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
@@ -102,7 +102,7 @@
 @media (max-width: 768px) {
   .hero {
     min-height: calc(100svh - var(--nav-h));
-    grid-template-rows: minmax(120px, 22vh) minmax(0, 1fr);
+    grid-template-rows: minmax(170px, 32vh) minmax(0, 1fr);
   }
 
   .hero__inner {
