@@ -10,6 +10,10 @@
   --line-strong: rgba(245, 166, 35, 0.35);
   --danger: #e85d4c;
   --ok: #6f9e6a;
+  --nav-bg: rgba(11, 13, 15, 0.85);
+  --theme-chip-bg: rgba(20, 24, 28, 0.92);
+  --crt-ink: 11, 13, 15;
+  --scanline: rgba(0, 0, 0, 0.35);
 
   --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', Menlo, monospace;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
@@ -18,6 +22,26 @@
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --max: 72rem;
   --grid: 48px;
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  --bg-0: #eef1f4;
+  --bg-1: #e4e8ec;
+  --bg-2: #d7dde3;
+  --fg: #12151a;
+  --fg-muted: #5a6570;
+  --accent: #b8740a;
+  --accent-dim: #94600a;
+  --line: rgba(18, 21, 26, 0.12);
+  --line-strong: rgba(184, 116, 10, 0.4);
+  --danger: #c94a3c;
+  --ok: #4f7d4a;
+  --nav-bg: rgba(238, 241, 244, 0.9);
+  --theme-chip-bg: rgba(255, 255, 255, 0.92);
+  --crt-ink: 18, 21, 26;
+  --scanline: rgba(18, 21, 26, 0.08);
+  color-scheme: light;
 }
 
 *,
@@ -85,8 +109,8 @@ body::after {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.35) 2px,
-    rgba(0, 0, 0, 0.35) 3px
+    var(--scanline) 2px,
+    var(--scanline) 3px
   );
 }
 

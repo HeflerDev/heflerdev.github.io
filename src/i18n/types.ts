@@ -11,6 +11,11 @@ export type Messages = {
     recommendations: string
     contact: string
     aria: string
+    themeLabel: string
+    themeLight: string
+    themeDark: string
+    themeToLight: string
+    themeToDark: string
   }
   hero: {
     meta: [string, string, string]

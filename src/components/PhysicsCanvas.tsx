@@ -28,6 +28,35 @@ function measureChipWidth(text: string, mobile: boolean) {
   return Math.max(mobile ? 52 : 64, (mobile ? 22 : 28) + text.length * scale)
 }
 
+type ChipPalette = {
+  accent: string
+  accentDim: string
+  chipBg: string
+  chipStroke: string
+  fg: string
+  ink: string
+}
+
+function readChipPalette(): ChipPalette {
+  const s = getComputedStyle(document.documentElement)
+  const pick = (name: string, fallback: string) =>
+    s.getPropertyValue(name).trim() || fallback
+  return {
+    accent: pick('--accent', '#f5a623'),
+    accentDim: pick('--accent-dim', '#c4841a'),
+    chipBg: pick('--bg-2', '#1a2026'),
+    chipStroke: pick('--line', 'rgba(232,230,225,0.28)'),
+    fg: pick('--fg', '#e8e6e1'),
+    ink: pick('--bg-0', '#0b0d0f'),
+  }
+}
+
+function paintChipBody(body: Matter.Body, accent: boolean, palette: ChipPalette) {
+  body.render.fillStyle = accent ? palette.accent : palette.chipBg
+  body.render.strokeStyle = accent ? palette.accentDim : palette.chipStroke
+  body.render.lineWidth = 1
+}
+
 export function PhysicsCanvas({
   enabled,
   mobile = false,
@@ -139,11 +168,12 @@ export function PhysicsCanvas({
         density: mobile ? 0.001 : 0.0012,
         label: 'chip',
         render: {
-          fillStyle: accent ? '#f5a623' : '#1a2026',
-          strokeStyle: accent ? '#c4841a' : 'rgba(232,230,225,0.28)',
+          fillStyle: '#000',
+          strokeStyle: '#000',
           lineWidth: 1,
         },
       })
+      paintChipBody(body, accent, readChipPalette())
       return { body, text, accent, alive: true }
     }
 
@@ -410,19 +440,32 @@ export function PhysicsCanvas({
     Events.on(render, 'afterRender', () => {
       const ctx = render.context
       const pr = (render.options.pixelRatio as number) || 1
+      const palette = readChipPalette()
       ctx.setTransform(pr, 0, 0, pr, 0, 0)
       ctx.font = `600 ${mobile ? 10 : 11}px "IBM Plex Mono", monospace`
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
       for (const { body, text, accent, alive } of chipMeta) {
         if (!alive) continue
-        ctx.fillStyle = accent ? '#0b0d0f' : '#e8e6e1'
+        ctx.fillStyle = accent ? palette.ink : palette.fg
         ctx.save()
         ctx.translate(body.position.x, body.position.y)
         ctx.rotate(body.angle)
         ctx.fillText(text, 0, 0.5)
         ctx.restore()
       }
+    })
+
+    const themeObserver = new MutationObserver(() => {
+      const palette = readChipPalette()
+      for (const chip of chipMeta) {
+        if (!chip.alive) continue
+        paintChipBody(chip.body, chip.accent, palette)
+      }
+    })
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
     })
 
     const runner = Runner.create()
@@ -470,6 +513,7 @@ export function PhysicsCanvas({
     host.addEventListener('touchcancel', onTouchEnd, { passive: false })
 
     return () => {
+      themeObserver.disconnect()
       ro.disconnect()
       resizeTimers.forEach((id) => window.clearTimeout(id))
       window.removeEventListener('mousemove', onMove)

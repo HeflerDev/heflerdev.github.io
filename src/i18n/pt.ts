@@ -12,6 +12,11 @@ export const pt: Messages = {
     recommendations: 'recs',
     contact: 'contato',
     aria: 'Principal',
+    themeLabel: 'tema',
+    themeLight: 'claro',
+    themeDark: 'escuro',
+    themeToLight: 'Mudar para tema claro',
+    themeToDark: 'Mudar para tema escuro',
   },
   hero: {
     meta: ['engenheiro de software', 'full-cycle', 'hefler.dev'],

@@ -23,7 +23,7 @@
   min-height: 100svh;
   grid-template-rows: minmax(0, 1fr) 0fr;
   border-bottom: none;
-  background: #0b0d0f;
+  background: var(--bg-0);
   /* Instant size so the paddle mounts against full viewport, not the old rack */
   transition: none;
 }
@@ -40,7 +40,7 @@
   border-bottom-color: transparent;
   background:
     linear-gradient(180deg, rgba(245, 166, 35, 0.08), transparent 50%),
-    #0b0d0f;
+    var(--bg-0);
 }
 
 .hero__rack {
@@ -49,7 +49,7 @@
   border-bottom: 1px solid var(--line);
   background:
     linear-gradient(180deg, rgba(245, 166, 35, 0.04), transparent 70%),
-    rgba(11, 13, 15, 0.35);
+    color-mix(in srgb, var(--bg-0) 65%, transparent);
   overflow: hidden;
   /* Capture finger play without scrolling the page */
   touch-action: none;
@@ -75,7 +75,7 @@
   background: rgba(245, 166, 35, 0.08);
   box-shadow:
     inset 0 1px 0 rgba(245, 166, 35, 0.12),
-    0 1px 0 rgba(11, 13, 15, 0.35);
+    0 1px 0 rgba(var(--crt-ink), 0.35);
   color: var(--accent);
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -104,7 +104,7 @@
 
 .hero__bait:active {
   transform: translateY(1px);
-  box-shadow: inset 0 1px 2px rgba(11, 13, 15, 0.35);
+  box-shadow: inset 0 1px 2px rgba(var(--crt-ink), 0.35);
 }
 
 .hero__bait:disabled {
@@ -121,7 +121,7 @@
   display: flex;
   gap: 0.35rem;
   pointer-events: none;
-  filter: drop-shadow(0 0 8px rgba(11, 13, 15, 0.75));
+  filter: drop-shadow(0 0 8px rgba(var(--crt-ink), 0.75));
 }
 
 .hero__hits {
@@ -135,7 +135,7 @@
   pointer-events: none;
   font-family: var(--font-mono);
   color: var(--accent);
-  text-shadow: 0 0 14px rgba(11, 13, 15, 0.9);
+  text-shadow: 0 0 14px rgba(var(--crt-ink), 0.9);
 }
 
 .hero__hitsLabel {
@@ -163,7 +163,7 @@
   justify-content: center;
   gap: 0.75rem;
   padding: var(--gutter);
-  background: rgba(11, 13, 15, 0.82);
+  background: color-mix(in srgb, var(--bg-0) 82%, transparent);
   text-align: center;
   font-family: var(--font-mono);
 }

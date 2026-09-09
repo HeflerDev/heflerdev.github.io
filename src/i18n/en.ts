@@ -12,6 +12,11 @@ export const en: Messages = {
     recommendations: 'recs',
     contact: 'contact',
     aria: 'Primary',
+    themeLabel: 'theme',
+    themeLight: 'light',
+    themeDark: 'dark',
+    themeToLight: 'Switch to light theme',
+    themeToDark: 'Switch to dark theme',
   },
   hero: {
     meta: ['software engineer', 'full-cycle', 'hefler.dev'],

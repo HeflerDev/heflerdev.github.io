@@ -7,10 +7,12 @@ import { Hero } from './components/Hero'
 import { Nav } from './components/Nav'
 import { Projects } from './components/Projects'
 import { Recommendations } from './components/Recommendations'
+import { ThemeToggle, useThemeDocked } from './components/ThemeToggle'
 import { sectionIds } from './i18n/types'
 
 export default function App() {
   const [activeId, setActiveId] = useState<string | undefined>()
+  const themeDocked = useThemeDocked()
 
   useEffect(() => {
     if ('scrollRestoration' in history) {
@@ -42,7 +44,8 @@ export default function App() {
 
   return (
     <>
-      <Nav activeId={activeId} />
+      <Nav activeId={activeId} themeDocked={themeDocked} />
+      <ThemeToggle variant="float" docked={themeDocked} />
       <main>
         <Hero />
         <About />

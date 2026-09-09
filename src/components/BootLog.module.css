@@ -9,7 +9,7 @@
   line-height: 1.45;
   letter-spacing: 0.02em;
   color: var(--fg-muted);
-  text-shadow: 0 0 12px rgba(11, 13, 15, 0.9);
+  text-shadow: 0 0 12px rgba(var(--crt-ink), 0.9);
 }
 
 .log__line {

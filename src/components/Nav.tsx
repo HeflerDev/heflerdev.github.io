@@ -1,12 +1,14 @@
 import { useLocale } from '../i18n/context'
 import { sectionIds } from '../i18n/types'
+import { ThemeToggle } from './ThemeToggle'
 import styles from './Nav.module.css'
 
 type Props = {
   activeId?: string
+  themeDocked?: boolean
 }
 
-export function Nav({ activeId }: Props) {
+export function Nav({ activeId, themeDocked = false }: Props) {
   const { locale, setLocale, t } = useLocale()
 
   const labels: Record<(typeof sectionIds)[number], string> = {
@@ -56,6 +58,7 @@ export function Nav({ activeId }: Props) {
             EN
           </button>
         </div>
+        <ThemeToggle variant="nav" docked={themeDocked} />
       </div>
     </nav>
   )
