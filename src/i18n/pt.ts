@@ -20,6 +20,12 @@ export const pt: Messages = {
       'APIs, microsserviços e infraestrutura cloud com TypeScript, Node.js, Rust e React.',
     ctaProjects: './projetos',
     ctaContact: './contato',
+    boot: [
+      'boot › kernel ok',
+      'boot › apis online',
+      'boot › infra ready',
+      'boot › hefler.dev',
+    ],
   },
   about: {
     label: '01 — sobre',

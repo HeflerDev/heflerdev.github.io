@@ -41,9 +41,8 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
 
     const wallOpts = { isStatic: true, render: { visible: false } }
     const chipH = mobile ? 24 : 28
-    // Mobile: keep chips parked in a shelf above the title (hero copy sits at the bottom)
-    const getFloorY = () =>
-      mobile ? Math.min(120, chipH * 2 + 56) : height + 30
+    // Keep chips in the top rack so they never invade the title zone
+    const getFloorY = () => Math.min(mobile ? 120 : 132, chipH * 2 + (mobile ? 56 : 64))
 
     const floor = Bodies.rectangle(width / 2, getFloorY(), width + 200, 60, wallOpts)
     const left = Bodies.rectangle(-30, height / 2, 60, height + 200, wallOpts)
@@ -84,10 +83,9 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
       })
     }
 
-    // Wrap into two centered rows on narrow screens (spawn just above the shelf)
     const mid = Math.ceil(labels.length / 2)
-    const needWrap = mobile || width < 720
-    const spawnY = mobile ? 18 : 36
+    const needWrap = true
+    const spawnY = mobile ? 18 : 22
     const chipMeta = needWrap
       ? [
           ...placeRow(labels.slice(0, mid), spawnY, 0),
@@ -136,18 +134,16 @@ export function PhysicsCanvas({ enabled, mobile = false }: Props) {
 
     Events.on(engine, 'beforeUpdate', () => {
       auto.tick += 1
-      if (mobile) {
-        const t = auto.tick * 0.015
-        // Keep the ambient shove inside the upper shelf so chips stay above the title
-        auto.x = width * 0.5 + Math.sin(t) * width * 0.28
-        auto.y = Math.min(getFloorY() - 28, 48 + Math.cos(t * 1.35) * 18)
-      }
+      const t = auto.tick * 0.015
+      // Ambient drift stays inside the rack shelf
+      auto.x = width * 0.5 + Math.sin(t) * width * 0.28
+      auto.y = Math.min(getFloorY() - 28, 48 + Math.cos(t * 1.35) * 18)
 
-      const sources = mobile
-        ? pointer.down
-          ? [{ x: pointer.x, y: pointer.y, radius: 200, strength: 0.0032 }]
-          : [{ x: auto.x, y: auto.y, radius: 150, strength: 0.0011 }]
-        : [{ x: pointer.x, y: pointer.y, radius: 220, strength: 0.0028 }]
+      const sources = pointer.down
+        ? [{ x: pointer.x, y: pointer.y, radius: mobile ? 200 : 180, strength: 0.003 }]
+        : mobile
+          ? [{ x: auto.x, y: auto.y, radius: 150, strength: 0.0011 }]
+          : [{ x: auto.x, y: auto.y, radius: 120, strength: 0.0007 }]
 
       for (const { body } of chipMeta) {
         for (const src of sources) {

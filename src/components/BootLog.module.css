@@ -1,0 +1,48 @@
+.log {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter);
+  bottom: 0.85rem;
+  max-width: min(42ch, calc(100% - 2 * var(--gutter)));
+  pointer-events: none;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--fg-muted);
+}
+
+.log__line {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.log__prompt {
+  color: var(--accent);
+  margin-right: 0.35rem;
+}
+
+.log__caret {
+  color: var(--accent);
+  animation: bootBlink 0.7s steps(1) infinite;
+}
+
+@keyframes bootBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .log {
+    font-size: 0.65rem;
+    bottom: 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .log__caret {
+    animation: none;
+  }
+}

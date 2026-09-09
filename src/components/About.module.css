@@ -99,6 +99,36 @@
   gap: 0.45rem;
 }
 
+.carousel {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.carousel__viewport {
+  min-height: 6.2rem;
+}
+
+.carousel__dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.carousel__dot {
+  appearance: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel__dot[data-active='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
 .tools__item {
   display: grid;
   grid-template-columns: auto auto 1fr;
@@ -153,6 +183,10 @@
 
   .list li {
     font-size: 0.88rem;
+  }
+
+  .carousel__viewport {
+    min-height: 5.6rem;
   }
 
   .tools__item {

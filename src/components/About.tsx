@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
 import { site } from '../data/site'
@@ -6,6 +5,7 @@ import { useLocale } from '../i18n/context'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { Reveal } from './Reveal'
 import { StackMeter } from './StackMeter'
+import { ToolsCarousel } from './ToolsCarousel'
 import styles from './About.module.css'
 
 export function About() {
@@ -62,10 +62,7 @@ export function About() {
             <div className={styles.panel}>
               <div className={styles.panel__head}>
                 <h3>{about.stacksTitle}</h3>
-                <span
-                  className={styles.panel__hint}
-                  data-status={sysStatus}
-                >
+                <span className={styles.panel__hint} data-status={sysStatus}>
                   {sysStatus === 'loading' ? 'loading…' : 'loaded'}
                 </span>
               </div>
@@ -84,24 +81,7 @@ export function About() {
                 <h3>{about.toolsTitle}</h3>
                 <span className={styles.panel__hint}>modules</span>
               </div>
-              <ul className={styles.tools}>
-                {about.tools.map((tool, i) => (
-                  <motion.li
-                    key={tool}
-                    className={styles.tools__item}
-                    initial={reduced ? false : { opacity: 0, x: -6 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.2, delay: 0.02 + i * 0.025 }}
-                  >
-                    <span className={styles.tools__status} aria-hidden="true">
-                      ok
-                    </span>
-                    <span className={styles.tools__cmd}>$ load</span>
-                    <span className={styles.tools__name}>{tool}</span>
-                  </motion.li>
-                ))}
-              </ul>
+              <ToolsCarousel tools={about.tools} />
             </div>
           </Reveal>
         </div>

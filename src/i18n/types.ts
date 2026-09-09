@@ -18,6 +18,7 @@ export type Messages = {
     support: string
     ctaProjects: string
     ctaContact: string
+    boot: string[]
   }
   about: {
     label: string
