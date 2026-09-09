@@ -6,7 +6,27 @@
   padding: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
-  touch-action: pan-y;
+  transition: grid-template-rows 0.45s ease;
+}
+
+.heroGame {
+  min-height: calc(100svh - var(--nav-h));
+  grid-template-rows: minmax(0, 1fr) 0fr;
+}
+
+.heroGame .hero__inner {
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.heroGame .hero__rack {
+  border-bottom-color: transparent;
+  background:
+    linear-gradient(180deg, rgba(245, 166, 35, 0.07), transparent 55%),
+    rgba(11, 13, 15, 0.55);
 }
 
 .hero__rack {
@@ -17,6 +37,44 @@
     linear-gradient(180deg, rgba(245, 166, 35, 0.04), transparent 70%),
     rgba(11, 13, 15, 0.35);
   overflow: hidden;
+  /* Capture finger play without scrolling the page */
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  min-height: 0;
+}
+
+.hero__bait {
+  position: absolute;
+  z-index: 5;
+  right: var(--gutter);
+  bottom: 0.55rem;
+  margin: 0;
+  padding: 0.2rem 0.35rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.hero__bait:hover,
+.hero__bait:focus-visible {
+  opacity: 1;
+  color: var(--accent);
+  border-color: rgba(245, 166, 35, 0.35);
+  outline: none;
+}
+
+.hero__bait:disabled {
+  cursor: default;
+  opacity: 0.35;
 }
 
 .hero__inner {
@@ -29,6 +87,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  touch-action: pan-y;
+  transition: opacity 0.35s ease, padding 0.45s ease;
+  min-height: 0;
 }
 
 .hero__meta {

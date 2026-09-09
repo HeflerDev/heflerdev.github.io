@@ -5,17 +5,28 @@ import styles from './BootLog.module.css'
 
 type Props = {
   enabled?: boolean
+  /** When set, replaces the default boot sequence (instant, no typewriter). */
+  lines?: string[]
 }
 
-export function BootLog({ enabled = true }: Props) {
+export function BootLog({ enabled = true, lines: override }: Props) {
   const { t } = useLocale()
   const reduced = useReducedMotion()
-  const lines = t.hero.boot
-  const [visible, setVisible] = useState(reduced ? lines.length : 0)
+  const defaultLines = t.hero.boot
+  const lines = override ?? defaultLines
+  const animated = !override
+  const [visible, setVisible] = useState(
+    reduced || !animated ? lines.length : 0,
+  )
 
   useEffect(() => {
-    if (!enabled || reduced) return
+    if (!enabled) return
+    if (!animated || reduced) {
+      setVisible(lines.length)
+      return
+    }
 
+    setVisible(0)
     let i = 0
     let timer = 0
     const tick = () => {
@@ -27,18 +38,18 @@ export function BootLog({ enabled = true }: Props) {
     }
     timer = window.setTimeout(tick, 180)
     return () => window.clearTimeout(timer)
-  }, [enabled, reduced, lines])
+  }, [enabled, reduced, animated, lines.join('\0')])
 
   if (!enabled) return null
 
   return (
     <div className={styles.log} aria-hidden="true">
-      {lines.slice(0, visible).map((line) => (
-        <p key={line} className={styles.log__line}>
+      {lines.slice(0, visible).map((line, idx) => (
+        <p key={`${idx}-${line}`} className={styles.log__line}>
           <span className={styles.log__prompt}>$</span> {line}
         </p>
       ))}
-      {visible < lines.length ? (
+      {animated && visible < lines.length ? (
         <p className={styles.log__line}>
           <span className={styles.log__prompt}>$</span>
           <span className={styles.log__caret}>▌</span>

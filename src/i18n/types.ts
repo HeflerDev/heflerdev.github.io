@@ -19,6 +19,11 @@ export type Messages = {
     ctaProjects: string
     ctaContact: string
     boot: string[]
+    bait: string
+    abort: string
+    breakoutInit: string
+    breakoutScore: (n: number) => string
+    breakoutClosed: string
   }
   about: {
     label: string

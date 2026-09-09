@@ -26,6 +26,11 @@ export const en: Messages = {
       'boot › infra ready',
       'boot › hefler.dev',
     ],
+    bait: 'do not press this button',
+    abort: 'abort session',
+    breakoutInit: 'breakout › session started · 1 life',
+    breakoutScore: (n) => `breakout › score ${n}`,
+    breakoutClosed: 'breakout › terminal closed',
   },
   about: {
     label: '01 — about',

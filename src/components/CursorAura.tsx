@@ -1,14 +1,16 @@
 import { useEffect, useRef } from 'react'
 import styles from './CursorAura.module.css'
+import type { PhysicsMode } from './PhysicsCanvas'
 
 type Props = {
   enabled: boolean
   mobile?: boolean
+  mode?: PhysicsMode
 }
 
 type Ripple = { x: number; y: number; born: number }
 
-export function CursorAura({ enabled, mobile = false }: Props) {
+export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -21,6 +23,7 @@ export function CursorAura({ enabled, mobile = false }: Props) {
     const parent = canvas.parentElement
     if (!parent) return
 
+    const breakout = mode === 'breakout'
     let width = 0
     let height = 0
     let raf = 0
@@ -31,6 +34,9 @@ export function CursorAura({ enabled, mobile = false }: Props) {
     const ripples: Ripple[] = []
     let tick = 0
     let lastRippleAt = 0
+
+    const paddleY = () => height - (mobile ? 36 : 44)
+    const paddleW = mobile ? 96 : 120
 
     const resize = () => {
       const rect = parent.getBoundingClientRect()
@@ -44,7 +50,7 @@ export function CursorAura({ enabled, mobile = false }: Props) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       if (!pointer.active && !pointer.touched) {
         pointer.x = width * 0.5
-        pointer.y = height * 0.36
+        pointer.y = breakout ? paddleY() : height * 0.36
         cursor.x = pointer.x
         cursor.y = pointer.y
       }
@@ -55,12 +61,12 @@ export function CursorAura({ enabled, mobile = false }: Props) {
       const x = clientX - rect.left
       const y = clientY - rect.top
       const inside = x >= 0 && y >= 0 && x <= width && y <= height
-      if (!inside) {
+      if (!inside && !breakout) {
         pointer.active = false
         return false
       }
-      pointer.x = x
-      pointer.y = y
+      pointer.x = Math.max(0, Math.min(width, x))
+      pointer.y = breakout ? paddleY() : y
       pointer.active = true
       return true
     }
@@ -72,37 +78,43 @@ export function CursorAura({ enabled, mobile = false }: Props) {
     }
 
     const onMove = (e: MouseEvent) => {
-      if (mobile) return
+      if (mobile && !breakout) return
       if (setFromClient(e.clientX, e.clientY) && tick - lastRippleAt > 8) {
-        spawnRipple(pointer.x, pointer.y)
+        spawnRipple(pointer.x, breakout ? paddleY() : pointer.y)
       }
     }
 
     const onLeave = () => {
-      pointer.active = false
+      if (!breakout) pointer.active = false
     }
 
     const onTouch = (e: TouchEvent) => {
-      if (!mobile) return
+      if (!mobile && !breakout) return
       const t = e.touches[0]
       if (!t) return
+      if (e.cancelable) e.preventDefault()
       if (setFromClient(t.clientX, t.clientY)) {
         pointer.touched = true
-        if (tick - lastRippleAt > 6) spawnRipple(pointer.x, pointer.y)
+        if (tick - lastRippleAt > 6) {
+          spawnRipple(pointer.x, breakout ? paddleY() : pointer.y)
+        }
       }
     }
 
-    const onTouchEnd = () => {
+    const onTouchEnd = (e: TouchEvent) => {
+      if ((mobile || breakout) && e.cancelable) e.preventDefault()
       pointer.touched = false
-      pointer.active = false
+      if (!breakout) pointer.active = false
     }
 
     const draw = () => {
       if (!running) return
       tick += 1
 
-      // Mobile ambient: drifting signal when not touching
-      if (mobile && !pointer.touched) {
+      if (breakout) {
+        pointer.y = paddleY()
+        pointer.active = true
+      } else if (mobile && !pointer.touched) {
         const t = tick * 0.011
         pointer.x = width * 0.5 + Math.sin(t) * width * 0.32
         pointer.y = height * 0.34 + Math.sin(t * 1.7 + 0.8) * height * 0.2
@@ -112,13 +124,20 @@ export function CursorAura({ enabled, mobile = false }: Props) {
         }
       }
 
-      cursor.x += (pointer.x - cursor.x) * (mobile ? 0.08 : 0.16)
-      cursor.y += (pointer.y - cursor.y) * (mobile ? 0.08 : 0.16)
+      const follow = breakout
+        ? 0.35
+        : mobile
+          ? pointer.touched
+            ? 0.32
+            : 0.08
+          : 0.16
+      cursor.x += (pointer.x - cursor.x) * follow
+      cursor.y += (pointer.y - cursor.y) * follow
 
       ctx.clearRect(0, 0, width, height)
 
       const cx = cursor.x
-      const cy = cursor.y
+      const cy = breakout ? paddleY() : cursor.y
       const t = tick * 0.045
       const rowStep = mobile ? 34 : 28
       const colStep = mobile ? 18 : 14
@@ -163,35 +182,49 @@ export function CursorAura({ enabled, mobile = false }: Props) {
         ctx.strokeStyle = `rgba(245, 166, 35, ${alpha})`
         ctx.lineWidth = 1.25
         ctx.stroke()
-
-        ctx.beginPath()
-        ctx.arc(r.x, r.y, radius * 0.55, 0, Math.PI * 2)
-        ctx.strokeStyle = `rgba(232, 230, 225, ${alpha * 0.35})`
-        ctx.lineWidth = 1
-        ctx.stroke()
       }
 
-      // Soft wash + mobile signal core
-      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, mobile ? 180 : 220)
-      glow.addColorStop(0, `rgba(245, 166, 35, ${mobile ? 0.16 : 0.1})`)
-      glow.addColorStop(0.4, 'rgba(245, 166, 35, 0.04)')
-      glow.addColorStop(1, 'rgba(245, 166, 35, 0)')
-      ctx.fillStyle = glow
-      ctx.beginPath()
-      ctx.arc(cx, cy, mobile ? 180 : 220, 0, Math.PI * 2)
-      ctx.fill()
-
-      if (mobile) {
-        const pulse = 5 + Math.sin(tick * 0.1) * 2
+      if (breakout) {
+        const half = paddleW / 2
+        const px = Math.max(half + 4, Math.min(width - half - 4, cx))
+        const py = paddleY()
+        const glow = ctx.createRadialGradient(px, py, 0, px, py, 120)
+        glow.addColorStop(0, 'rgba(245, 166, 35, 0.18)')
+        glow.addColorStop(1, 'rgba(245, 166, 35, 0)')
+        ctx.fillStyle = glow
         ctx.beginPath()
-        ctx.arc(cx, cy, pulse + 10, 0, Math.PI * 2)
-        ctx.strokeStyle = 'rgba(245, 166, 35, 0.35)'
-        ctx.lineWidth = 1
-        ctx.stroke()
-        ctx.fillStyle = '#f5a623'
-        ctx.beginPath()
-        ctx.arc(cx, cy, 2.5, 0, Math.PI * 2)
+        ctx.arc(px, py, 120, 0, Math.PI * 2)
         ctx.fill()
+
+        ctx.fillStyle = 'rgba(245, 166, 35, 0.85)'
+        ctx.strokeStyle = 'rgba(196, 132, 26, 0.9)'
+        ctx.lineWidth = 1
+        ctx.beginPath()
+        ctx.roundRect(px - half, py - 7, paddleW, 14, 4)
+        ctx.fill()
+        ctx.stroke()
+      } else {
+        const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, mobile ? 180 : 220)
+        glow.addColorStop(0, `rgba(245, 166, 35, ${mobile ? 0.16 : 0.1})`)
+        glow.addColorStop(0.4, 'rgba(245, 166, 35, 0.04)')
+        glow.addColorStop(1, 'rgba(245, 166, 35, 0)')
+        ctx.fillStyle = glow
+        ctx.beginPath()
+        ctx.arc(cx, cy, mobile ? 180 : 220, 0, Math.PI * 2)
+        ctx.fill()
+
+        if (mobile) {
+          const pulse = 5 + Math.sin(tick * 0.1) * 2
+          ctx.beginPath()
+          ctx.arc(cx, cy, pulse + 10, 0, Math.PI * 2)
+          ctx.strokeStyle = 'rgba(245, 166, 35, 0.35)'
+          ctx.lineWidth = 1
+          ctx.stroke()
+          ctx.fillStyle = '#f5a623'
+          ctx.beginPath()
+          ctx.arc(cx, cy, 2.5, 0, Math.PI * 2)
+          ctx.fill()
+        }
       }
 
       raf = requestAnimationFrame(draw)
@@ -201,10 +234,10 @@ export function CursorAura({ enabled, mobile = false }: Props) {
     window.addEventListener('resize', resize)
     window.addEventListener('mousemove', onMove)
     parent.addEventListener('mouseleave', onLeave)
-    parent.addEventListener('touchstart', onTouch, { passive: true })
-    parent.addEventListener('touchmove', onTouch, { passive: true })
-    parent.addEventListener('touchend', onTouchEnd)
-    parent.addEventListener('touchcancel', onTouchEnd)
+    parent.addEventListener('touchstart', onTouch, { passive: false })
+    parent.addEventListener('touchmove', onTouch, { passive: false })
+    parent.addEventListener('touchend', onTouchEnd, { passive: false })
+    parent.addEventListener('touchcancel', onTouchEnd, { passive: false })
     raf = requestAnimationFrame(draw)
 
     return () => {
@@ -218,7 +251,7 @@ export function CursorAura({ enabled, mobile = false }: Props) {
       parent.removeEventListener('touchend', onTouchEnd)
       parent.removeEventListener('touchcancel', onTouchEnd)
     }
-  }, [enabled, mobile])
+  }, [enabled, mobile, mode])
 
   if (!enabled) return null
 

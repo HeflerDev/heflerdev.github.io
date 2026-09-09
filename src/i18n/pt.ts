@@ -26,6 +26,11 @@ export const pt: Messages = {
       'boot › infra ready',
       'boot › hefler.dev',
     ],
+    bait: 'não aperte esse botão',
+    abort: 'abortar sessão',
+    breakoutInit: 'breakout › sessão iniciada · 1 vida',
+    breakoutScore: (n) => `breakout › score ${n}`,
+    breakoutClosed: 'breakout › terminal fechado',
   },
   about: {
     label: '01 — sobre',
