@@ -117,3 +117,31 @@
     padding-bottom: 1.5rem;
   }
 }
+
+:global(html[data-theme='light']) .track {
+  margin-left: 0.55rem;
+  padding-left: 1.85rem;
+}
+
+:global(html[data-theme='light']) .item {
+  padding-bottom: 2.75rem;
+}
+
+:global(html[data-theme='light']) .filters {
+  margin-bottom: 2.25rem;
+  gap: 1.25rem;
+}
+
+:global(html[data-theme='light']) .more {
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  :global(html[data-theme='light']) .item {
+    padding-bottom: 2rem;
+  }
+
+  :global(html[data-theme='light']) .track {
+    padding-left: 1.35rem;
+  }
+}

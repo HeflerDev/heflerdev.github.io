@@ -141,3 +141,13 @@
     transform: none;
   }
 }
+
+:global(html[data-theme='light']) .float {
+  border-color: var(--line);
+  box-shadow: 0 10px 28px rgba(var(--crt-ink), 0.06);
+  padding: 0.5rem 0.75rem;
+}
+
+:global(html[data-theme='light']) .navBtn[data-visible='true'] {
+  border-color: var(--line);
+}

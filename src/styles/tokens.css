@@ -28,6 +28,7 @@
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --max: 72rem;
   --grid: 48px;
+  --section-pad-y: clamp(3rem, 8vw, 5rem);
   color-scheme: dark;
 }
 
@@ -43,17 +44,21 @@ html[data-theme='light'] {
   --accent-bright: #b34e00;
   --accent-rgb: 224, 120, 0;
   --on-accent: #0b0d0f;
-  --line: rgba(18, 16, 12, 0.18);
-  --line-strong: rgba(224, 120, 0, 0.55);
+  --line: rgba(18, 16, 12, 0.1);
+  --line-strong: rgba(224, 120, 0, 0.45);
   --danger: #c94a3c;
   --ok: #3f6e3a;
-  --nav-bg: rgba(230, 224, 212, 0.94);
-  --theme-chip-bg: rgba(245, 240, 230, 0.96);
+  --nav-bg: rgba(230, 224, 212, 0.88);
+  --theme-chip-bg: rgba(245, 240, 230, 0.9);
   --crt-ink: 18, 16, 12;
-  --scanline: rgba(18, 16, 12, 0.14);
-  --glow: rgba(224, 120, 0, 0.14);
-  --grid-opacity: 0.5;
-  --scan-opacity: 0.06;
+  --scanline: rgba(18, 16, 12, 0.08);
+  --glow: rgba(224, 120, 0, 0.08);
+  --grid-opacity: 0.18;
+  --scan-opacity: 0.025;
+  --gutter: clamp(1.75rem, 6vw, 5rem);
+  --max: 64rem;
+  --grid: 64px;
+  --section-pad-y: clamp(4.5rem, 12vw, 7.5rem);
   color-scheme: light;
 }
 
@@ -163,7 +168,7 @@ button,
   width: 100%;
   max-width: var(--max);
   margin: 0 auto;
-  padding: clamp(3rem, 8vw, 5rem) var(--gutter);
+  padding: var(--section-pad-y) var(--gutter);
   min-height: calc(100svh - var(--nav-h));
   display: flex;
   flex-direction: column;
@@ -205,6 +210,20 @@ button,
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.15;
+}
+
+html[data-theme='light'] .section-label {
+  margin-bottom: 2rem;
+  letter-spacing: 0.16em;
+}
+
+html[data-theme='light'] .section-title {
+  margin-bottom: 2rem;
+  letter-spacing: -0.035em;
+}
+
+html[data-theme='light'] body {
+  line-height: 1.75;
 }
 
 .muted {
@@ -267,6 +286,12 @@ html[data-theme='light'] .btn {
     --grid: 36px;
   }
 
+  html[data-theme='light'] {
+    --gutter: clamp(1.25rem, 5vw, 1.75rem);
+    --grid: 48px;
+    --section-pad-y: clamp(3.25rem, 10vw, 4.5rem);
+  }
+
   body {
     font-size: 14px;
   }
@@ -276,7 +301,7 @@ html[data-theme='light'] .btn {
   }
 
   .section {
-    padding: 2.75rem var(--gutter);
+    padding: var(--section-pad-y) var(--gutter);
     min-height: calc(100svh - var(--nav-h));
   }
 

@@ -424,3 +424,23 @@
     padding-top: 0.35rem;
   }
 }
+
+:global(html[data-theme='light']) .item {
+  padding: 2.35rem 0;
+  gap: 1.6rem;
+}
+
+:global(html[data-theme='light']) .carousel__controls {
+  padding: 1.35rem 0 0.5rem;
+}
+
+:global(html[data-theme='light']) .carousel__track {
+  min-height: 13.5rem;
+}
+
+@media (max-width: 768px) {
+  :global(html[data-theme='light']) .item {
+    padding: 1.75rem 0;
+    gap: 1.1rem;
+  }
+}

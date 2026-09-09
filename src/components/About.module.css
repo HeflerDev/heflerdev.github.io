@@ -199,3 +199,63 @@
     display: none;
   }
 }
+
+:global(html[data-theme='light']) .layout {
+  gap: 3.75rem;
+}
+
+@media (min-width: 860px) {
+  :global(html[data-theme='light']) .layout {
+    gap: 4.25rem;
+  }
+}
+
+:global(html[data-theme='light']) .bio {
+  margin-bottom: 1.35rem;
+  max-width: 50ch;
+}
+
+:global(html[data-theme='light']) .list {
+  margin-top: 1.75rem;
+}
+
+:global(html[data-theme='light']) .list li {
+  padding: 0.85rem 0 0.85rem 1.35rem;
+}
+
+:global(html[data-theme='light']) .panel {
+  border-color: var(--line);
+  background:
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.04), transparent 40%),
+    color-mix(in srgb, var(--bg-0) 88%, var(--bg-1));
+  padding: 1.75rem 1.65rem;
+  box-shadow: none;
+}
+
+:global(html[data-theme='light']) .panel__head {
+  margin-bottom: 1.15rem;
+}
+
+:global(html[data-theme='light']) .stack {
+  gap: 0.45rem;
+  margin-bottom: 2.25rem;
+}
+
+:global(html[data-theme='light']) .tools {
+  gap: 0.65rem;
+}
+
+:global(html[data-theme='light']) .tools__item {
+  padding: 0.7rem 0.8rem;
+  background: transparent;
+}
+
+@media (max-width: 768px) {
+  :global(html[data-theme='light']) .panel {
+    padding: 1.4rem 1.15rem;
+  }
+
+  :global(html[data-theme='light']) .layout {
+    gap: 2.75rem;
+  }
+}
