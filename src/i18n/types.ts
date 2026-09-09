@@ -22,8 +22,9 @@ export type Messages = {
     bait: string
     abort: string
     breakoutInit: string
-    breakoutScore: (n: number) => string
+    breakoutHud: (score: number) => string
     breakoutClosed: string
+    livesAria: string
   }
   about: {
     label: string

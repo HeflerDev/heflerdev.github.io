@@ -28,9 +28,10 @@ export const en: Messages = {
     ],
     bait: 'do not press this button',
     abort: 'abort session',
-    breakoutInit: 'breakout › session started · 1 life',
-    breakoutScore: (n) => `breakout › score ${n}`,
+    breakoutInit: 'breakout › session started',
+    breakoutHud: (score) => `breakout › score ${score}`,
     breakoutClosed: 'breakout › terminal closed',
+    livesAria: 'Lives remaining',
   },
   about: {
     label: '01 — about',
