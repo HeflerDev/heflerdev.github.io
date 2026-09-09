@@ -168,11 +168,21 @@ export const pt: Messages = {
     work: 'trabalho',
     education: 'formação',
     present: 'atual',
+    seeMore: 'ver mais experiências',
+    seeLess: 'mostrar menos',
     items: [
+      {
+        title: 'Tech Lead, Araratech, Brasil',
+        from: 'jan 2026',
+        to: 'present',
+        kind: 'work',
+        description:
+          'Liderança técnica do time em um ERP com PDV em Java: definição de arquitetura e padrões, priorização técnica e mentoria. Responsável por conduzir entregas dos módulos de gestão e frente de caixa, code reviews, qualidade e estabilidade em produção, além de alinhar soluções com produto e operação.',
+      },
       {
         title: 'Back End Developer, Good Software Dev, Texas, Estados Unidos',
         from: '2022',
-        to: 'present',
+        to: 'dez 2025',
         kind: 'work',
         description:
           'Planejamento, desenvolvimento e manutenção de software e microsserviços, com forte foco em TypeScript/JavaScript. Envolvido em todo o ciclo de vida da aplicação, da arquitetura ao deploy e suporte contínuo. Experiência em gestão de servidores e liderança de times. Análise e otimização de performance, incluindo diagnóstico e melhoria de bancos NoSQL, especialmente MongoDB.',

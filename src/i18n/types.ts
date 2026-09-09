@@ -72,6 +72,8 @@ export type Messages = {
     work: string
     education: string
     present: string
+    seeMore: string
+    seeLess: string
     items: {
       title: string
       from: string

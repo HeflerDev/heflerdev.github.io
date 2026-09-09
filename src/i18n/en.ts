@@ -168,11 +168,21 @@ export const en: Messages = {
     work: 'work',
     education: 'education',
     present: 'present',
+    seeMore: 'see more experience',
+    seeLess: 'show less',
     items: [
+      {
+        title: 'Tech Lead, Araratech, Brazil',
+        from: 'Jan 2026',
+        to: 'present',
+        kind: 'work',
+        description:
+          'Technical leadership for a Java ERP with POS (PDV): architecture and engineering standards, mentoring, and delivery ownership. Drive cashier and management modules, code reviews, production stability, and alignment between product, engineering, and operations.',
+      },
       {
         title: 'Back End Developer, Good Software Dev, Texas, United States',
         from: '2022',
-        to: 'present',
+        to: 'Dec 2025',
         kind: 'work',
         description:
           'Planning, development, and maintenance of software and microservices, with a strong focus on TypeScript/JavaScript. Involved in the entire application lifecycle, from architecture to deployment and ongoing support. Experience in server management and leading project teams. Skilled in analyzing and optimizing system performance, including diagnosing and improving NoSQL databases, especially MongoDB.',
