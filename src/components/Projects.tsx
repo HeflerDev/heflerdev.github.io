@@ -150,12 +150,14 @@ function ProjectCard({
     <article
       className={`${styles.item}${featured ? ` ${styles.itemFeatured}` : ''}`}
     >
-      <img
-        className={styles.thumb}
-        src={project.image}
-        alt=""
-        loading="lazy"
-      />
+      <div className={styles.thumbFrame}>
+        <img
+          className={styles.thumb}
+          src={project.image}
+          alt=""
+          loading="lazy"
+        />
+      </div>
       <div>
         <p className={styles.index}>
           {String(index + 1).padStart(2, '0')}
