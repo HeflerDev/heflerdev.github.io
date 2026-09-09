@@ -128,7 +128,7 @@ export const en: Messages = {
           'Redis',
           'API Development',
         ],
-        image: '/images/coverbadger.png',
+        image: '/images/coverbadger.jpg',
         summary:
           'Backend maintenance and enhancements — API stability, MongoDB/Redis optimization, microservices features, AWS + Docker + Kubernetes deployments.',
         link: 'https://coverbadger.com/',

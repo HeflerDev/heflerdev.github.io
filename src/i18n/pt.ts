@@ -128,7 +128,7 @@ export const pt: Messages = {
           'Redis',
           'API Development',
         ],
-        image: '/images/coverbadger.png',
+        image: '/images/coverbadger.jpg',
         summary:
           'Manutenção e evoluções de backend — estabilidade de APIs, otimização MongoDB/Redis, features em microsserviços, deploys AWS + Docker + Kubernetes.',
         link: 'https://coverbadger.com/',
