@@ -57,8 +57,8 @@ export function PhysicsCanvas({
     const { Engine, Render, Runner, Bodies, Body, Composite, Events } = Matter
     const breakout = mode === 'breakout'
 
-    const gravityStart = mobile ? 0.06 : 0.08
-    const gravityEnd = mobile ? 0.42 : 0.5
+    const gravityStart = mobile ? 0.14 : 0.16
+    const gravityEnd = mobile ? 0.48 : 0.58
 
     const engine = Engine.create({
       gravity: {
@@ -117,9 +117,9 @@ export function PhysicsCanvas({
 
     const airForElapsed = (elapsedSec: number) => {
       if (!breakout) return mobile ? 0.016 : 0.012
-      // Keep plenty of drag so arcs feel floaty, not snappy
-      const a0 = mobile ? 0.055 : 0.048
-      const a1 = mobile ? 0.022 : 0.018
+      // Less drag early so the first drops feel snappier; still floaty on the way up
+      const a0 = mobile ? 0.028 : 0.024
+      const a1 = mobile ? 0.014 : 0.012
       return a0 + (a1 - a0) * Math.min(1, elapsedSec / 55)
     }
 
@@ -257,8 +257,8 @@ export function PhysicsCanvas({
       chipMeta.push(chip)
       Composite.add(engine.world, chip.body)
       Body.setVelocity(chip.body, {
-        x: (Math.random() - 0.5) * (0.8 + Math.min(2, elapsedSec * 0.03)),
-        y: 0.2 + Math.random() * 0.4,
+        x: (Math.random() - 0.5) * (1.2 + Math.min(2.5, elapsedSec * 0.04)),
+        y: 1.1 + Math.random() * 0.8,
       })
     }
 
@@ -300,10 +300,13 @@ export function PhysicsCanvas({
             window.setTimeout(() => scoredHits.delete(chipBody), 320)
             bumpScore()
             onPaddleHitRef.current?.()
-            // High arc, controlled speed (not a rocket)
+            // Launch so the peak sits ~70% up the arena (near 30% from the top)
             const offset = (chipBody.position.x - pointer.x) / (paddleW * 0.5)
             const vx = offset * 3.2 + chipBody.velocity.x * 0.15
-            const vy = -(9.2 + Math.random() * 1.4)
+            const targetTop = height * 0.3
+            const rise = Math.max(height * 0.5, getPaddleY() - targetTop)
+            // Empirical impulse (Matter gravity.scale + air drag) — clears ~70% of the screen
+            const vy = -Math.min(24, Math.max(15, rise * 0.034))
             Body.setVelocity(chipBody, { x: vx, y: vy })
             Body.setAngularVelocity(chipBody, offset * 0.12)
           }
@@ -373,10 +376,10 @@ export function PhysicsCanvas({
               y: 6.5,
             })
           }
-          if (chip.body.velocity.y < -12) {
+          if (chip.body.velocity.y < -22) {
             Body.setVelocity(chip.body, {
               x: chip.body.velocity.x,
-              y: -12,
+              y: -22,
             })
           }
         }
