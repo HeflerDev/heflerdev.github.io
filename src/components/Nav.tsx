@@ -18,7 +18,7 @@ export function Nav({ activeId }: Props) {
   }
 
   return (
-    <nav className={styles.nav} aria-label={t.nav.aria}>
+    <nav className={styles.nav} aria-label={t.nav.aria} data-site-nav>
       <a className={styles.nav__brand} href="#top">
         <span className={styles.nav__prompt}>~/</span>
         <span>hefler</span>

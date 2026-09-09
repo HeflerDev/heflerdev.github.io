@@ -31,6 +31,15 @@ html {
   scroll-padding-top: var(--nav-h);
 }
 
+body[data-breakout='1'] {
+  overflow: hidden;
+}
+
+body[data-breakout='1'] [data-site-nav] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

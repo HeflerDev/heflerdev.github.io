@@ -12,6 +12,26 @@ import styles from './Hero.module.css'
 
 type Phase = 'idle' | 'playing' | 'closing'
 
+const BEST_KEY = 'heflerdev.breakout.best'
+
+function readBest(): number {
+  try {
+    const raw = localStorage.getItem(BEST_KEY)
+    const n = raw ? Number.parseInt(raw, 10) : 0
+    return Number.isFinite(n) && n > 0 ? n : 0
+  } catch {
+    return 0
+  }
+}
+
+function writeBest(score: number) {
+  try {
+    localStorage.setItem(BEST_KEY, String(score))
+  } catch {
+    /* ignore quota / private mode */
+  }
+}
+
 export function Hero() {
   const reduced = useReducedMotion()
   const mobile = useCoarsePointer()
@@ -19,32 +39,44 @@ export function Hero() {
   const [phase, setPhase] = useState<Phase>('idle')
   const [score, setScore] = useState(0)
   const [lives, setLives] = useState(3)
+  const [best, setBest] = useState(0)
+  const [isNewBest, setIsNewBest] = useState(false)
 
   const gameActive = phase === 'playing' || phase === 'closing'
   const mode = phase === 'idle' ? 'idle' : 'breakout'
 
   useEffect(() => {
+    setBest(readBest())
+  }, [])
+
+  useEffect(() => {
     if (!gameActive) return
-    const prev = document.documentElement.style.overflow
+    const prevHtml = document.documentElement.style.overflow
+    const prevBody = document.body.style.overflow
     document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+    document.body.dataset.breakout = '1'
+    window.scrollTo({ top: 0, behavior: 'instant' })
     return () => {
-      document.documentElement.style.overflow = prev
+      document.documentElement.style.overflow = prevHtml
+      document.body.style.overflow = prevBody
+      delete document.body.dataset.breakout
     }
   }, [gameActive])
 
   useEffect(() => {
-    if (phase !== 'playing') return
+    if (phase !== 'playing' && phase !== 'closing') return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setPhase('idle')
+      if (e.key === 'Escape') {
+        if (phase === 'closing') setPhase('idle')
+        else {
+          breakoutSfx.close()
+          setPhase('idle')
+        }
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [phase])
-
-  useEffect(() => {
-    if (phase !== 'closing') return
-    const timer = window.setTimeout(() => setPhase('idle'), 1400)
-    return () => window.clearTimeout(timer)
   }, [phase])
 
   const bootLines =
@@ -59,6 +91,8 @@ export function Hero() {
     breakoutSfx.start()
     setScore(0)
     setLives(3)
+    setIsNewBest(false)
+    setBest(readBest())
     setPhase('playing')
   }
 
@@ -67,12 +101,29 @@ export function Hero() {
     setPhase('idle')
   }
 
+  const finishGame = (finalScore: number) => {
+    setScore(finalScore)
+    const prevBest = readBest()
+    if (finalScore > prevBest) {
+      writeBest(finalScore)
+      setBest(finalScore)
+      setIsNewBest(true)
+    } else {
+      setBest(prevBest)
+      setIsNewBest(false)
+    }
+    breakoutSfx.close()
+    setPhase('closing')
+  }
+
   return (
-    <section
-      className={`${styles.hero}${gameActive ? ` ${styles.heroGame}` : ''}`}
-      id="top"
-      aria-label="Hero"
-    >
+    <>
+      {gameActive ? <div className={styles.heroSpacer} aria-hidden="true" /> : null}
+      <section
+        className={`${styles.hero}${gameActive ? ` ${styles.heroGame}` : ''}`}
+        id="top"
+        aria-label="Hero"
+      >
       <div className={styles.hero__rack}>
         {reduced ? (
           <div className={styles.hero__static} aria-hidden="true" />
@@ -80,44 +131,74 @@ export function Hero() {
           <>
             <PhysicsCanvas
               key={mode}
-              enabled
+              enabled={phase !== 'closing'}
               mobile={mobile}
               mode={mode}
               onScore={setScore}
               onLives={setLives}
               onPaddleHit={() => breakoutSfx.hit()}
               onChipMiss={() => breakoutSfx.miss()}
-              onGameOver={(finalScore) => {
-                setScore(finalScore)
-                breakoutSfx.close()
-                setPhase('closing')
-              }}
+              onGameOver={finishGame}
             />
-            <CursorAura enabled mobile={mobile} mode={mode} />
+            {phase === 'playing' ? (
+              <CursorAura enabled mobile={mobile} mode={mode} />
+            ) : null}
           </>
         )}
-        {gameActive ? (
-          <div
-            className={styles.hero__lives}
-            role="img"
-            aria-label={`${t.hero.livesAria}: ${lives}`}
-          >
-            {[0, 1, 2].map((i) => (
-              <HeartIcon key={i} filled={i < lives} />
-            ))}
+
+        {phase === 'playing' ? (
+          <>
+            <div className={styles.hero__hits} aria-live="polite">
+              <span className={styles.hero__hitsLabel}>{t.hero.hitsLabel}</span>
+              <span className={styles.hero__hitsValue}>{score}</span>
+            </div>
+            <div
+              className={styles.hero__lives}
+              role="img"
+              aria-label={`${t.hero.livesAria}: ${lives}`}
+            >
+              {[0, 1, 2].map((i) => (
+                <HeartIcon key={i} filled={i < lives} />
+              ))}
+            </div>
+          </>
+        ) : null}
+
+        {phase === 'closing' ? (
+          <div className={styles.hero__result}>
+            <p className={styles.hero__resultEyebrow}>{t.hero.breakoutClosed}</p>
+            <p className={styles.hero__resultScore}>
+              <span>{t.hero.finalScore}</span>
+              <strong>{score}</strong>
+            </p>
+            <p className={styles.hero__resultBest}>
+              <span>{t.hero.bestScore}</span>
+              <strong>{best}</strong>
+              {isNewBest ? (
+                <em className={styles.hero__resultNew}>{t.hero.newBest}</em>
+              ) : null}
+            </p>
+            <button
+              type="button"
+              className={styles.hero__resultBtn}
+              onClick={() => setPhase('idle')}
+            >
+              {t.hero.dismissResult}
+            </button>
           </div>
         ) : null}
-        <BootLog enabled={!reduced} lines={bootLines} />
-        {!reduced ? (
+
+        {phase !== 'closing' ? (
+          <BootLog enabled={!reduced} lines={bootLines} />
+        ) : null}
+
+        {!reduced && phase !== 'closing' ? (
           <button
             type="button"
             className={styles.hero__bait}
             onClick={phase === 'playing' ? abortGame : startGame}
-            disabled={phase === 'closing'}
           >
-            {phase === 'playing' || phase === 'closing'
-              ? t.hero.abort
-              : t.hero.bait}
+            {phase === 'playing' ? t.hero.abort : t.hero.bait}
           </button>
         ) : null}
       </div>
@@ -177,6 +258,7 @@ export function Hero() {
         </motion.div>
       </div>
     </section>
+    </>
   )
 }
 

@@ -57,8 +57,8 @@ export function PhysicsCanvas({
     const { Engine, Render, Runner, Bodies, Body, Composite, Events } = Matter
     const breakout = mode === 'breakout'
 
-    const gravityStart = mobile ? 0.08 : 0.1
-    const gravityEnd = mobile ? 0.72 : 0.88
+    const gravityStart = mobile ? 0.06 : 0.08
+    const gravityEnd = mobile ? 0.42 : 0.5
 
     const engine = Engine.create({
       gravity: {
@@ -95,7 +95,11 @@ export function PhysicsCanvas({
     })
     const left = Bodies.rectangle(-30, height / 2, 60, height + 200, wallOpts)
     const right = Bodies.rectangle(width + 30, height / 2, 60, height + 200, wallOpts)
-    const ceiling = Bodies.rectangle(width / 2, -40, width + 200, 80, wallOpts)
+    const ceiling = Bodies.rectangle(width / 2, -20, width + 200, 60, {
+      ...wallOpts,
+      label: 'ceiling',
+      restitution: 0.35,
+    })
 
     let paddle: Matter.Body | null = null
     if (breakout) {
@@ -112,10 +116,10 @@ export function PhysicsCanvas({
 
     const airForElapsed = (elapsedSec: number) => {
       if (!breakout) return mobile ? 0.016 : 0.012
-      // High drag early (slow fall), less later
-      const a0 = mobile ? 0.045 : 0.038
-      const a1 = mobile ? 0.008 : 0.005
-      return a0 + (a1 - a0) * Math.min(1, elapsedSec / 45)
+      // Keep plenty of drag so arcs feel floaty, not snappy
+      const a0 = mobile ? 0.055 : 0.048
+      const a1 = mobile ? 0.022 : 0.018
+      return a0 + (a1 - a0) * Math.min(1, elapsedSec / 55)
     }
 
     const makeChip = (
@@ -279,18 +283,28 @@ export function PhysicsCanvas({
             continue
           }
 
+          if (labelsPair.includes('ceiling')) {
+            // Soft top bounce — don't rain back down at full speed
+            Body.setVelocity(chipBody, {
+              x: chipBody.velocity.x * 0.45,
+              y: Math.min(2.8, Math.abs(chipBody.velocity.y) * 0.22),
+            })
+            Body.setAngularVelocity(chipBody, chipBody.angularVelocity * 0.4)
+            continue
+          }
+
           if (labelsPair.includes('paddle')) {
             if (scoredHits.has(chipBody)) continue
             scoredHits.add(chipBody)
-            window.setTimeout(() => scoredHits.delete(chipBody), 280)
+            window.setTimeout(() => scoredHits.delete(chipBody), 320)
             bumpScore()
             onPaddleHitRef.current?.()
-            // Launch chip high — angle from hit offset on paddle
+            // High arc, controlled speed (not a rocket)
             const offset = (chipBody.position.x - pointer.x) / (paddleW * 0.5)
-            const vx = offset * 6 + chipBody.velocity.x * 0.25
-            const vy = -(18 + Math.random() * 5)
+            const vx = offset * 3.2 + chipBody.velocity.x * 0.15
+            const vy = -(9.2 + Math.random() * 1.4)
             Body.setVelocity(chipBody, { x: vx, y: vy })
-            Body.setAngularVelocity(chipBody, offset * 0.25)
+            Body.setAngularVelocity(chipBody, offset * 0.12)
           }
         }
       })
@@ -349,7 +363,21 @@ export function PhysicsCanvas({
 
         const air = airForElapsed(elapsed)
         for (const chip of chipMeta) {
-          if (chip.alive) chip.body.frictionAir = air
+          if (!chip.alive) continue
+          chip.body.frictionAir = air
+          // Cap fall speed after ceiling / long drops
+          if (chip.body.velocity.y > 6.5) {
+            Body.setVelocity(chip.body, {
+              x: chip.body.velocity.x * 0.98,
+              y: 6.5,
+            })
+          }
+          if (chip.body.velocity.y < -12) {
+            Body.setVelocity(chip.body, {
+              x: chip.body.velocity.x,
+              y: -12,
+            })
+          }
         }
 
         // First chip already dropped; next ones arrive slowly, then faster
@@ -413,7 +441,7 @@ export function PhysicsCanvas({
       Body.setPosition(floor, { x: width / 2, y: getFloorY() })
       Body.setPosition(left, { x: -30, y: height / 2 })
       Body.setPosition(right, { x: width + 30, y: height / 2 })
-      Body.setPosition(ceiling, { x: width / 2, y: -40 })
+      Body.setPosition(ceiling, { x: width / 2, y: -20 })
       if (paddle) {
         Body.setPosition(paddle, {
           x: Math.max(paddleW / 2, Math.min(width - paddleW / 2, pointer.x)),

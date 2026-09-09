@@ -25,6 +25,11 @@ export type Messages = {
     breakoutHud: (score: number) => string
     breakoutClosed: string
     livesAria: string
+    hitsLabel: string
+    finalScore: string
+    bestScore: string
+    newBest: string
+    dismissResult: string
   }
   about: {
     label: string
