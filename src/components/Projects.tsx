@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocale } from '../i18n/context'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { Reveal } from './Reveal'
@@ -146,17 +146,47 @@ function ProjectCard({
   }
   featured?: boolean
 }) {
+  const reduced = useReducedMotion()
+  const [glitch, setGlitch] = useState(false)
+
+  useEffect(() => {
+    if (reduced) return
+    let waitId = 0
+    let burstId = 0
+
+    const schedule = () => {
+      waitId = window.setTimeout(() => {
+        setGlitch(true)
+        burstId = window.setTimeout(() => {
+          setGlitch(false)
+          schedule()
+        }, 110 + Math.random() * 220)
+      }, 2800 + Math.random() * 10000)
+    }
+
+    schedule()
+    return () => {
+      window.clearTimeout(waitId)
+      window.clearTimeout(burstId)
+    }
+  }, [reduced, project.id])
+
   return (
     <article
       className={`${styles.item}${featured ? ` ${styles.itemFeatured}` : ''}`}
     >
-      <div className={styles.thumbFrame}>
+      <div
+        className={styles.thumbFrame}
+        data-glitch={glitch ? 'true' : undefined}
+      >
         <img
           className={styles.thumb}
           src={project.image}
           alt=""
           loading="lazy"
         />
+        <span className={styles.thumbScan} aria-hidden="true" />
+        <span className={styles.thumbStatic} aria-hidden="true" />
       </div>
       <div>
         <p className={styles.index}>
