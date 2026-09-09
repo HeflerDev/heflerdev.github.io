@@ -91,6 +91,11 @@ export const pt: Messages = {
     private: 'privado',
     live: 'live →',
     github: 'github →',
+    seeMore: 'ver mais trabalhos',
+    seeLess: 'mostrar menos',
+    prev: 'anterior',
+    next: 'próximo',
+    carouselAria: 'Carrossel de projetos',
     items: [
       {
         id: 'ghs',

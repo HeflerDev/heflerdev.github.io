@@ -50,6 +50,11 @@ export type Messages = {
     private: string
     live: string
     github: string
+    seeMore: string
+    seeLess: string
+    prev: string
+    next: string
+    carouselAria: string
     items: {
       id: string
       name: string
