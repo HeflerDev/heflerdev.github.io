@@ -158,8 +158,12 @@ export function Hero() {
               onChipMiss={() => breakoutSfx.miss()}
               onGameOver={finishGame}
             />
-            {phase === 'playing' && arenaReady ? (
-              <CursorAura enabled mobile={mobile} mode="breakout" />
+            {phase !== 'closing' && (phase !== 'playing' || arenaReady) ? (
+              <CursorAura
+                enabled
+                mobile={mobile}
+                mode={phase === 'playing' ? 'breakout' : 'idle'}
+              />
             ) : null}
           </>
         )}
