@@ -88,6 +88,28 @@
   }
 }
 
+.thumbLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+  outline: none;
+}
+
+.thumbLink:focus-visible .thumbFrame {
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(245, 166, 35, 0.18),
+    0 0 0 1px rgba(245, 166, 35, 0.2);
+}
+
+.thumbLink:hover .thumbFrame {
+  border-color: rgba(245, 166, 35, 0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(245, 166, 35, 0.18),
+    0 0 0 1px rgba(245, 166, 35, 0.12);
+}
+
 .thumbFrame {
   position: relative;
   overflow: hidden;
@@ -99,9 +121,14 @@
   box-shadow:
     inset 0 1px 0 rgba(245, 166, 35, 0.1),
     0 0 0 1px rgba(11, 13, 15, 0.35);
+  cursor: default;
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
+}
+
+.thumbLink .thumbFrame {
+  cursor: pointer;
 }
 
 .thumbFrame::after {

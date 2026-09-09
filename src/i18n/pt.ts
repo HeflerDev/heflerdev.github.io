@@ -113,6 +113,7 @@ export const pt: Messages = {
         image: '/images/portal-suporte.png',
         summary:
           'Painel administrativo interno para ERP que integra cadastro de funcionários, sistema de permissões RBAC, quadro Kanban, registro de clientes e gerenciamento de tickets em uma única plataforma.',
+        link: 'https://suporte.arara-tech.com',
         private: true,
       },
       {

@@ -113,6 +113,7 @@ export const en: Messages = {
         image: '/images/portal-suporte.png',
         summary:
           'Internal ERP admin panel that combines employee records, RBAC permissions, a Kanban board, customer registry, and ticket management in a single platform.',
+        link: 'https://suporte.arara-tech.com',
         private: true,
       },
       {

@@ -175,19 +175,43 @@ function ProjectCard({
     <article
       className={`${styles.item}${featured ? ` ${styles.itemFeatured}` : ''}`}
     >
-      <div
-        className={styles.thumbFrame}
-        data-glitch={glitch ? 'true' : undefined}
-      >
-        <img
-          className={styles.thumb}
-          src={project.image}
-          alt=""
-          loading="lazy"
-        />
-        <span className={styles.thumbScan} aria-hidden="true" />
-        <span className={styles.thumbStatic} aria-hidden="true" />
-      </div>
+      {project.link ? (
+        <a
+          className={styles.thumbLink}
+          href={project.link}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${project.name} — ${labels.live}`}
+        >
+          <div
+            className={styles.thumbFrame}
+            data-glitch={glitch ? 'true' : undefined}
+          >
+            <img
+              className={styles.thumb}
+              src={project.image}
+              alt=""
+              loading="lazy"
+            />
+            <span className={styles.thumbScan} aria-hidden="true" />
+            <span className={styles.thumbStatic} aria-hidden="true" />
+          </div>
+        </a>
+      ) : (
+        <div
+          className={styles.thumbFrame}
+          data-glitch={glitch ? 'true' : undefined}
+        >
+          <img
+            className={styles.thumb}
+            src={project.image}
+            alt=""
+            loading="lazy"
+          />
+          <span className={styles.thumbScan} aria-hidden="true" />
+          <span className={styles.thumbStatic} aria-hidden="true" />
+        </div>
+      )}
       <div>
         <p className={styles.index}>
           {String(index + 1).padStart(2, '0')}
