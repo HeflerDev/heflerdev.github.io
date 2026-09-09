@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { site } from '../data/site'
 import { useLocale } from '../i18n/context'
@@ -43,11 +43,29 @@ export function Hero() {
   const [isNewBest, setIsNewBest] = useState(false)
 
   const gameActive = phase === 'playing' || phase === 'closing'
-  const mode = phase === 'idle' ? 'idle' : 'breakout'
+  const mode = phase === 'playing' ? 'breakout' : 'idle'
+  // Wait for fullscreen expand / collapse so the arena size is correct
+  const [arenaReady, setArenaReady] = useState(true)
+  const arenaBootstrapped = useRef(false)
 
   useEffect(() => {
     setBest(readBest())
   }, [])
+
+  useEffect(() => {
+    if (!arenaBootstrapped.current) {
+      arenaBootstrapped.current = true
+      return
+    }
+    if (phase === 'closing') {
+      setArenaReady(false)
+      return
+    }
+    setArenaReady(false)
+    const delay = phase === 'playing' ? 480 : 520
+    const timer = window.setTimeout(() => setArenaReady(true), delay)
+    return () => window.clearTimeout(timer)
+  }, [phase])
 
   useEffect(() => {
     if (!gameActive) return
@@ -131,7 +149,7 @@ export function Hero() {
           <>
             <PhysicsCanvas
               key={mode}
-              enabled={phase !== 'closing'}
+              enabled={!reduced && arenaReady && phase !== 'closing'}
               mobile={mobile}
               mode={mode}
               onScore={setScore}
@@ -140,8 +158,8 @@ export function Hero() {
               onChipMiss={() => breakoutSfx.miss()}
               onGameOver={finishGame}
             />
-            {phase === 'playing' ? (
-              <CursorAura enabled mobile={mobile} mode={mode} />
+            {phase === 'playing' && arenaReady ? (
+              <CursorAura enabled mobile={mobile} mode="breakout" />
             ) : null}
           </>
         )}

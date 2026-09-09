@@ -84,9 +84,10 @@ export function PhysicsCanvas({
 
     const wallOpts = { isStatic: true, render: { visible: false } }
     const chipH = mobile ? 24 : 28
-    const getFloorY = () => (breakout ? height - 8 : height + 24)
-    const paddleW = mobile ? 96 : 120
-    const getPaddleY = () => height - (mobile ? 36 : 44)
+    const getFloorY = () => (breakout ? height - 6 : height + 24)
+    const paddleW = mobile ? 112 : 140
+    // Sit above the floor so side grazes still count as hits
+    const getPaddleY = () => height - (mobile ? 100 : 118)
 
     const floor = Bodies.rectangle(width / 2, getFloorY(), width + 200, 40, {
       ...wallOpts,
@@ -426,8 +427,8 @@ export function PhysicsCanvas({
     Runner.run(runner, engine)
 
     const onResize = () => {
-      width = host.clientWidth
-      height = host.clientHeight
+      width = Math.max(1, host.clientWidth)
+      height = Math.max(1, host.clientHeight)
       const pr = (render.options.pixelRatio as number) || 1
       render.canvas.width = width * pr
       render.canvas.height = height * pr
@@ -450,7 +451,12 @@ export function PhysicsCanvas({
       }
     }
 
-    requestAnimationFrame(onResize)
+    onResize()
+    const ro = new ResizeObserver(() => onResize())
+    ro.observe(host)
+    const resizeTimers = [50, 120, 280, 480, 700].map((ms) =>
+      window.setTimeout(onResize, ms),
+    )
 
     window.addEventListener('mousemove', onMove)
     window.addEventListener('resize', onResize)
@@ -461,6 +467,8 @@ export function PhysicsCanvas({
     host.addEventListener('touchcancel', onTouchEnd, { passive: false })
 
     return () => {
+      ro.disconnect()
+      resizeTimers.forEach((id) => window.clearTimeout(id))
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('resize', onResize)
       host.removeEventListener('mouseleave', onPointerLeave)

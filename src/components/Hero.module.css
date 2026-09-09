@@ -24,6 +24,8 @@
   grid-template-rows: minmax(0, 1fr) 0fr;
   border-bottom: none;
   background: #0b0d0f;
+  /* Instant size so the paddle mounts against full viewport, not the old rack */
+  transition: none;
 }
 
 .heroGame .hero__inner {

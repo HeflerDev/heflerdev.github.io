@@ -35,8 +35,8 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
     let tick = 0
     let lastRippleAt = 0
 
-    const paddleY = () => height - (mobile ? 36 : 44)
-    const paddleW = mobile ? 96 : 120
+    const paddleY = () => height - (mobile ? 100 : 118)
+    const paddleW = mobile ? 112 : 140
 
     const resize = () => {
       const rect = parent.getBoundingClientRect()
@@ -53,6 +53,8 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         pointer.y = breakout ? paddleY() : height * 0.36
         cursor.x = pointer.x
         cursor.y = pointer.y
+      } else if (breakout) {
+        pointer.y = paddleY()
       }
     }
 
@@ -231,6 +233,11 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
     }
 
     resize()
+    const ro = new ResizeObserver(() => resize())
+    ro.observe(parent)
+    const resizeTimers = [50, 120, 280, 480, 700].map((ms) =>
+      window.setTimeout(resize, ms),
+    )
     window.addEventListener('resize', resize)
     window.addEventListener('mousemove', onMove)
     parent.addEventListener('mouseleave', onLeave)
@@ -243,6 +250,8 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
     return () => {
       running = false
       cancelAnimationFrame(raf)
+      ro.disconnect()
+      resizeTimers.forEach((id) => window.clearTimeout(id))
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', onMove)
       parent.removeEventListener('mouseleave', onLeave)
