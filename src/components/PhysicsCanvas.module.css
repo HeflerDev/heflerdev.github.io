@@ -10,6 +10,7 @@
 .canvasPlay {
   pointer-events: auto;
   touch-action: none;
-  z-index: 3;
+  /* Stay under CursorAura so waves/orb stay visible */
+  z-index: 1;
   cursor: grab;
 }
