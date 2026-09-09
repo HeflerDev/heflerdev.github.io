@@ -5,7 +5,7 @@
   grid-template-rows: minmax(210px, 38vh) minmax(0, 1fr);
   padding: 0;
   overflow: hidden;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-strong);
   transition: grid-template-rows 0.45s ease;
 }
 
@@ -46,10 +46,10 @@
 .hero__rack {
   position: relative;
   z-index: 1;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-strong);
   background:
-    linear-gradient(180deg, rgba(var(--accent-rgb), 0.04), transparent 70%),
-    color-mix(in srgb, var(--bg-0) 65%, transparent);
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.1), transparent 72%),
+    var(--bg-1);
   overflow: hidden;
   /* Capture finger play without scrolling the page */
   touch-action: none;
@@ -233,7 +233,7 @@
 }
 
 .hero__heartEmpty {
-  color: rgba(232, 230, 225, 0.22);
+  color: rgba(var(--crt-ink), 0.28);
   opacity: 0.7;
   transform: scale(0.92);
 }

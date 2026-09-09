@@ -40,7 +40,7 @@ html[data-theme='light'] {
   --fg-muted: #5a5348;
   --accent: #e07800;
   --accent-dim: #b85f00;
-  --accent-bright: #ff9a2e;
+  --accent-bright: #b34e00;
   --accent-rgb: 224, 120, 0;
   --on-accent: #0b0d0f;
   --line: rgba(18, 16, 12, 0.18);
@@ -169,6 +169,11 @@ button,
   flex-direction: column;
   justify-content: flex-start;
   border-top: 1px solid var(--line);
+}
+
+/* Hero already draws the hard rule into About — avoid a double hairline */
+#about.section {
+  border-top: 0;
 }
 
 @supports (justify-content: safe center) {

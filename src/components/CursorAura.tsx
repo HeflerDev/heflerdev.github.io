@@ -148,6 +148,13 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
       const rgb = accentRgb()
       const accent = accentHex()
       const dim = accentDim()
+      const light = document.documentElement.dataset.theme === 'light'
+      const waveA0 = light ? 0.28 : 0.09
+      const waveA1 = light ? 0.22 : 0.08
+      const rippleA = light ? 0.72 : 0.45
+      const glowA = light ? (mobile ? 0.34 : 0.26) : mobile ? 0.2 : 0.14
+      const glowMid = light ? 0.12 : 0.05
+      const ringA = light ? 0.7 : 0.4
 
       // Idle ambient drift when the pointer is idle
       if (!breakout && !pointer.touched && !pointer.active) {
@@ -163,7 +170,7 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
       const rowStep = mobile ? 34 : 28
       const colStep = mobile ? 18 : 14
 
-      ctx.lineWidth = 1
+      ctx.lineWidth = light ? 1.35 : 1
       for (let y = 0; y <= height + rowStep; y += rowStep) {
         ctx.beginPath()
         let first = true
@@ -185,7 +192,7 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
           }
         }
         const edgeFade = 0.15 + 0.45 * (1 - Math.abs(y / height - 0.45))
-        ctx.strokeStyle = `rgba(${rgb}, ${0.09 + edgeFade * 0.08})`
+        ctx.strokeStyle = `rgba(${rgb}, ${waveA0 + edgeFade * waveA1})`
         ctx.stroke()
       }
 
@@ -193,7 +200,7 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         const r = ripples[i]
         const age = tick - r.born
         const radius = age * (mobile ? 2.8 : 2.4)
-        const alpha = Math.max(0, 0.45 - age * 0.007)
+        const alpha = Math.max(0, rippleA - age * (light ? 0.009 : 0.007))
         if (alpha <= 0.01) {
           ripples.splice(i, 1)
           continue
@@ -201,7 +208,7 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         ctx.beginPath()
         ctx.arc(r.x, r.y, radius, 0, Math.PI * 2)
         ctx.strokeStyle = `rgba(${rgb}, ${alpha})`
-        ctx.lineWidth = 1.25
+        ctx.lineWidth = light ? 1.5 : 1.25
         ctx.stroke()
       }
 
@@ -210,7 +217,7 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         const px = Math.max(half + 4, Math.min(width - half - 4, cx))
         const py = paddleY()
         const glow = ctx.createRadialGradient(px, py, 0, px, py, 120)
-        glow.addColorStop(0, `rgba(${rgb}, 0.18)`)
+        glow.addColorStop(0, `rgba(${rgb}, ${light ? 0.28 : 0.18})`)
         glow.addColorStop(1, `rgba(${rgb}, 0)`)
         ctx.fillStyle = glow
         ctx.beginPath()
@@ -228,8 +235,8 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         const orbX = cursor.x
         const orbY = cursor.y
         const glow = ctx.createRadialGradient(orbX, orbY, 0, orbX, orbY, mobile ? 180 : 200)
-        glow.addColorStop(0, `rgba(${rgb}, ${mobile ? 0.2 : 0.14})`)
-        glow.addColorStop(0.4, `rgba(${rgb}, 0.05)`)
+        glow.addColorStop(0, `rgba(${rgb}, ${glowA})`)
+        glow.addColorStop(0.4, `rgba(${rgb}, ${glowMid})`)
         glow.addColorStop(1, `rgba(${rgb}, 0)`)
         ctx.fillStyle = glow
         ctx.beginPath()
@@ -239,8 +246,8 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         const pulse = 5 + Math.sin(tick * 0.1) * 2
         ctx.beginPath()
         ctx.arc(orbX, orbY, pulse + 10, 0, Math.PI * 2)
-        ctx.strokeStyle = `rgba(${rgb}, 0.4)`
-        ctx.lineWidth = 1
+        ctx.strokeStyle = `rgba(${rgb}, ${ringA})`
+        ctx.lineWidth = light ? 1.35 : 1
         ctx.stroke()
         ctx.fillStyle = accent
         ctx.beginPath()

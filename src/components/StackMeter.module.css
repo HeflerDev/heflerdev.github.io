@@ -55,7 +55,7 @@
 }
 
 .meter__blockOff {
-  color: rgba(var(--crt-ink), 0.22);
+  color: rgba(var(--crt-ink), 0.18);
 }
 
 .meter__blockOn[data-head='true'] {
