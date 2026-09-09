@@ -98,6 +98,42 @@ export const en: Messages = {
     carouselAria: 'Projects carousel',
     items: [
       {
+        id: 'sgc',
+        name: 'SGC + PDV',
+        tools: ['Java', 'ERP', 'PDV', 'NFC-e', 'NF-e', 'TEF'],
+        image: '/images/sgc.png',
+        summary:
+          'Full retail platform: back-office (SGC) for catalogs, inventory, billing, finance, and tax documents, plus a POS synced to the back-office with NFC-e/NF-e, card payments (TEF), and offline/local operation. I currently work on this project as Developer and Tech Lead.',
+        private: true,
+      },
+      {
+        id: 'portal-suporte',
+        name: 'Support Portal',
+        tools: ['Java', 'TypeScript', 'React', 'RBAC', 'Kanban'],
+        image: '/images/portal-suporte.png',
+        summary:
+          'Internal ERP admin panel that combines employee records, RBAC permissions, a Kanban board, customer registry, and ticket management in a single platform.',
+        private: true,
+      },
+      {
+        id: 'cover-badger',
+        name: 'Cover Badger',
+        tools: [
+          'JavaScript',
+          'Node.js',
+          'MongoDB',
+          'AWS',
+          'Docker',
+          'Kubernetes',
+          'Redis',
+          'API Development',
+        ],
+        image: '/images/coverbadger.png',
+        summary:
+          'Backend maintenance and enhancements — API stability, MongoDB/Redis optimization, microservices features, AWS + Docker + Kubernetes deployments.',
+        link: 'https://coverbadger.com/',
+      },
+      {
         id: 'ghs',
         name: 'GHS Platform',
         tools: ['Node.js', 'MongoDB', 'AWS', 'Docker', 'API Development'],
@@ -105,16 +141,6 @@ export const en: Messages = {
         summary:
           'Led end-to-end backend API development — database architecture, RESTful endpoints, AWS EC2 + Docker deployment — with a focus on performance, scalability, and security.',
         link: 'https://app.stangsfb.com/',
-      },
-      {
-        id: 'rp1',
-        name: 'RP1 Message Dispatch System',
-        tools: ['Node.js', 'TypeScript', 'MongoDB', 'Redis', 'Microservices'],
-        image: '/images/rp1.jpeg',
-        summary:
-          'High-throughput message microservice using subprocesses, clustering, and Redis — optimized MongoDB indexes for 100M+ records. Private project.',
-        link: 'https://callprofitrocket.com/rocket-bookings/',
-        private: true,
       },
       {
         id: 'audience-lab',
@@ -143,22 +169,14 @@ export const en: Messages = {
         github: 'https://github.com/heflerdev/watchtower',
       },
       {
-        id: 'cover-badger',
-        name: 'Cover Badger',
-        tools: [
-          'JavaScript',
-          'Node.js',
-          'MongoDB',
-          'AWS',
-          'Docker',
-          'Kubernetes',
-          'Redis',
-          'API Development',
-        ],
-        image: '/images/coverbadger.png',
+        id: 'rp1',
+        name: 'RP1 Message Dispatch System',
+        tools: ['Node.js', 'TypeScript', 'MongoDB', 'Redis', 'Microservices'],
+        image: '/images/rp1.jpeg',
         summary:
-          'Backend maintenance and enhancements — API stability, MongoDB/Redis optimization, microservices features, AWS + Docker + Kubernetes deployments.',
-        link: 'https://coverbadger.com/',
+          'High-throughput message microservice using subprocesses, clustering, and Redis — optimized MongoDB indexes for 100M+ records. Private project.',
+        link: 'https://callprofitrocket.com/rocket-bookings/',
+        private: true,
       },
     ],
   },
