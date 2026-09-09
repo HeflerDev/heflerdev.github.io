@@ -6,14 +6,20 @@
   --fg-muted: #8b939c;
   --accent: #f5a623;
   --accent-dim: #c4841a;
+  --accent-bright: #ffe09a;
+  --accent-rgb: 245, 166, 35;
+  --on-accent: #0b0d0f;
   --line: rgba(232, 230, 225, 0.12);
-  --line-strong: rgba(245, 166, 35, 0.35);
+  --line-strong: rgba(var(--accent-rgb), 0.35);
   --danger: #e85d4c;
   --ok: #6f9e6a;
   --nav-bg: rgba(11, 13, 15, 0.85);
   --theme-chip-bg: rgba(20, 24, 28, 0.92);
   --crt-ink: 11, 13, 15;
   --scanline: rgba(0, 0, 0, 0.35);
+  --glow: rgba(var(--accent-rgb), 0.06);
+  --grid-opacity: 0.35;
+  --scan-opacity: 0.04;
 
   --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', Menlo, monospace;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
@@ -25,22 +31,29 @@
   color-scheme: dark;
 }
 
+/* Phosphor paper: warm bone + loud amber — same terminal brutal, inverted */
 html[data-theme='light'] {
-  --bg-0: #eef1f4;
-  --bg-1: #e4e8ec;
-  --bg-2: #d7dde3;
-  --fg: #12151a;
-  --fg-muted: #5a6570;
-  --accent: #b8740a;
-  --accent-dim: #94600a;
-  --line: rgba(18, 21, 26, 0.12);
-  --line-strong: rgba(184, 116, 10, 0.4);
+  --bg-0: #e6e0d4;
+  --bg-1: #dbd4c6;
+  --bg-2: #cfc7b6;
+  --fg: #12100c;
+  --fg-muted: #5a5348;
+  --accent: #e07800;
+  --accent-dim: #b85f00;
+  --accent-bright: #ff9a2e;
+  --accent-rgb: 224, 120, 0;
+  --on-accent: #0b0d0f;
+  --line: rgba(18, 16, 12, 0.18);
+  --line-strong: rgba(224, 120, 0, 0.55);
   --danger: #c94a3c;
-  --ok: #4f7d4a;
-  --nav-bg: rgba(238, 241, 244, 0.9);
-  --theme-chip-bg: rgba(255, 255, 255, 0.92);
-  --crt-ink: 18, 21, 26;
-  --scanline: rgba(18, 21, 26, 0.08);
+  --ok: #3f6e3a;
+  --nav-bg: rgba(230, 224, 212, 0.94);
+  --theme-chip-bg: rgba(245, 240, 230, 0.96);
+  --crt-ink: 18, 16, 12;
+  --scanline: rgba(18, 16, 12, 0.14);
+  --glow: rgba(224, 120, 0, 0.14);
+  --grid-opacity: 0.5;
+  --scan-opacity: 0.06;
   color-scheme: light;
 }
 
@@ -75,7 +88,7 @@ body {
   min-height: 100vh;
   color: var(--fg);
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245, 166, 35, 0.06), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -20%, var(--glow), transparent),
     linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
   font-family: var(--font-mono);
   font-size: 15px;
@@ -94,7 +107,7 @@ body::before {
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: var(--grid) var(--grid);
-  opacity: 0.35;
+  opacity: var(--grid-opacity);
   mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
 }
 
@@ -104,7 +117,7 @@ body::after {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  opacity: 0.04;
+  opacity: var(--scan-opacity);
   background: repeating-linear-gradient(
     0deg,
     transparent,
@@ -142,7 +155,7 @@ button,
 
 ::selection {
   background: var(--accent);
-  color: var(--bg-0);
+  color: var(--on-accent);
 }
 
 .section {
@@ -216,7 +229,7 @@ button,
 
 .btn:hover {
   background: var(--accent);
-  color: var(--bg-0);
+  color: var(--on-accent);
   text-decoration: none;
 }
 
@@ -229,6 +242,11 @@ button,
   border-color: var(--fg);
   background: var(--fg);
   color: var(--bg-0);
+}
+
+html[data-theme='light'] .btn {
+  border-width: 1.5px;
+  font-weight: 500;
 }
 
 .rule {
@@ -249,7 +267,7 @@ button,
   }
 
   body::before {
-    opacity: 0.22;
+    opacity: calc(var(--grid-opacity) * 0.65);
   }
 
   .section {

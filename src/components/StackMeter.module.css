@@ -55,11 +55,11 @@
 }
 
 .meter__blockOff {
-  color: rgba(232, 230, 225, 0.18);
+  color: rgba(var(--crt-ink), 0.22);
 }
 
 .meter__blockOn[data-head='true'] {
-  color: #ffe09a;
+  color: var(--accent-bright);
   animation: meterPulse 0.45s ease-in-out infinite alternate;
 }
 

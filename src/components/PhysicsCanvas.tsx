@@ -34,7 +34,7 @@ type ChipPalette = {
   chipBg: string
   chipStroke: string
   fg: string
-  ink: string
+  onAccent: string
 }
 
 function readChipPalette(): ChipPalette {
@@ -47,7 +47,7 @@ function readChipPalette(): ChipPalette {
     chipBg: pick('--bg-2', '#1a2026'),
     chipStroke: pick('--line', 'rgba(232,230,225,0.28)'),
     fg: pick('--fg', '#e8e6e1'),
-    ink: pick('--bg-0', '#0b0d0f'),
+    onAccent: pick('--on-accent', '#0b0d0f'),
   }
 }
 
@@ -447,7 +447,7 @@ export function PhysicsCanvas({
       ctx.textBaseline = 'middle'
       for (const { body, text, accent, alive } of chipMeta) {
         if (!alive) continue
-        ctx.fillStyle = accent ? palette.ink : palette.fg
+        ctx.fillStyle = accent ? palette.onAccent : palette.fg
         ctx.save()
         ctx.translate(body.position.x, body.position.y)
         ctx.rotate(body.angle)

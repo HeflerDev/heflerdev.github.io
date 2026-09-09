@@ -38,6 +38,21 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
     const paddleY = () => height - (mobile ? 100 : 118)
     const paddleW = mobile ? 112 : 140
 
+    const accentRgb = () => {
+      const raw = getComputedStyle(document.documentElement)
+        .getPropertyValue('--accent-rgb')
+        .trim()
+      return raw || '245, 166, 35'
+    }
+    const accentHex = () =>
+      getComputedStyle(document.documentElement)
+        .getPropertyValue('--accent')
+        .trim() || '#f5a623'
+    const accentDim = () =>
+      getComputedStyle(document.documentElement)
+        .getPropertyValue('--accent-dim')
+        .trim() || '#c4841a'
+
     const resize = () => {
       const rect = parent.getBoundingClientRect()
       width = rect.width
@@ -130,6 +145,10 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
 
       ctx.clearRect(0, 0, width, height)
 
+      const rgb = accentRgb()
+      const accent = accentHex()
+      const dim = accentDim()
+
       // Idle ambient drift when the pointer is idle
       if (!breakout && !pointer.touched && !pointer.active) {
         const drift = tick * 0.011
@@ -166,7 +185,7 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
           }
         }
         const edgeFade = 0.15 + 0.45 * (1 - Math.abs(y / height - 0.45))
-        ctx.strokeStyle = `rgba(245, 166, 35, ${0.09 + edgeFade * 0.08})`
+        ctx.strokeStyle = `rgba(${rgb}, ${0.09 + edgeFade * 0.08})`
         ctx.stroke()
       }
 
@@ -181,7 +200,7 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         }
         ctx.beginPath()
         ctx.arc(r.x, r.y, radius, 0, Math.PI * 2)
-        ctx.strokeStyle = `rgba(245, 166, 35, ${alpha})`
+        ctx.strokeStyle = `rgba(${rgb}, ${alpha})`
         ctx.lineWidth = 1.25
         ctx.stroke()
       }
@@ -191,15 +210,15 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         const px = Math.max(half + 4, Math.min(width - half - 4, cx))
         const py = paddleY()
         const glow = ctx.createRadialGradient(px, py, 0, px, py, 120)
-        glow.addColorStop(0, 'rgba(245, 166, 35, 0.18)')
-        glow.addColorStop(1, 'rgba(245, 166, 35, 0)')
+        glow.addColorStop(0, `rgba(${rgb}, 0.18)`)
+        glow.addColorStop(1, `rgba(${rgb}, 0)`)
         ctx.fillStyle = glow
         ctx.beginPath()
         ctx.arc(px, py, 120, 0, Math.PI * 2)
         ctx.fill()
 
-        ctx.fillStyle = 'rgba(245, 166, 35, 0.85)'
-        ctx.strokeStyle = 'rgba(196, 132, 26, 0.9)'
+        ctx.fillStyle = `rgba(${rgb}, 0.85)`
+        ctx.strokeStyle = dim
         ctx.lineWidth = 1
         ctx.beginPath()
         ctx.roundRect(px - half, py - 7, paddleW, 14, 4)
@@ -209,9 +228,9 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         const orbX = cursor.x
         const orbY = cursor.y
         const glow = ctx.createRadialGradient(orbX, orbY, 0, orbX, orbY, mobile ? 180 : 200)
-        glow.addColorStop(0, `rgba(245, 166, 35, ${mobile ? 0.2 : 0.14})`)
-        glow.addColorStop(0.4, 'rgba(245, 166, 35, 0.05)')
-        glow.addColorStop(1, 'rgba(245, 166, 35, 0)')
+        glow.addColorStop(0, `rgba(${rgb}, ${mobile ? 0.2 : 0.14})`)
+        glow.addColorStop(0.4, `rgba(${rgb}, 0.05)`)
+        glow.addColorStop(1, `rgba(${rgb}, 0)`)
         ctx.fillStyle = glow
         ctx.beginPath()
         ctx.arc(orbX, orbY, mobile ? 180 : 200, 0, Math.PI * 2)
@@ -220,10 +239,10 @@ export function CursorAura({ enabled, mobile = false, mode = 'idle' }: Props) {
         const pulse = 5 + Math.sin(tick * 0.1) * 2
         ctx.beginPath()
         ctx.arc(orbX, orbY, pulse + 10, 0, Math.PI * 2)
-        ctx.strokeStyle = 'rgba(245, 166, 35, 0.4)'
+        ctx.strokeStyle = `rgba(${rgb}, 0.4)`
         ctx.lineWidth = 1
         ctx.stroke()
-        ctx.fillStyle = '#f5a623'
+        ctx.fillStyle = accent
         ctx.beginPath()
         ctx.arc(orbX, orbY, mobile ? 2.5 : 3, 0, Math.PI * 2)
         ctx.fill()

@@ -76,9 +76,9 @@
   justify-content: center;
   min-height: 2.5rem;
   padding: 0.5rem 0.95rem;
-  border: 1px solid rgba(245, 166, 35, 0.45);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
   border-radius: 2px;
-  background: rgba(245, 166, 35, 0.08);
+  background: rgba(var(--accent-rgb), 0.08);
   color: var(--accent);
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -93,7 +93,7 @@
 
 .more__btn:hover,
 .more__btn:focus-visible {
-  color: var(--bg-0);
+  color: var(--on-accent);
   background: var(--accent);
   border-color: var(--accent);
   outline: none;

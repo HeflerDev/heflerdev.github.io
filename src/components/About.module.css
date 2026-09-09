@@ -48,7 +48,7 @@
 .panel {
   border: 1px solid var(--line);
   background:
-    linear-gradient(180deg, rgba(245, 166, 35, 0.04), transparent 30%),
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.04), transparent 30%),
     rgba(20, 24, 28, 0.75);
   padding: 1.25rem 1.35rem;
 }
@@ -145,14 +145,14 @@
 
 .tools__item:hover {
   border-color: var(--line-strong);
-  background: rgba(245, 166, 35, 0.05);
+  background: rgba(var(--accent-rgb), 0.05);
 }
 
 .tools__status {
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--bg-0);
+  color: var(--on-accent);
   background: var(--ok);
   padding: 0.12rem 0.35rem;
   line-height: 1.2;
