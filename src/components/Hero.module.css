@@ -67,15 +67,16 @@
 
 .hero__bait {
   position: absolute;
-  z-index: 5;
+  z-index: 20;
   right: var(--gutter);
-  bottom: 0.65rem;
+  bottom: max(0.65rem, env(safe-area-inset-bottom));
   margin: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2rem;
-  padding: 0.35rem 0.7rem;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.55rem 0.85rem;
   border: 1px solid rgba(var(--accent-rgb), 0.45);
   border-radius: 2px;
   background: rgba(var(--accent-rgb), 0.08);
@@ -89,6 +90,9 @@
   text-transform: lowercase;
   cursor: pointer;
   opacity: 0.85;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition:
     opacity 0.2s ease,
     color 0.2s ease,

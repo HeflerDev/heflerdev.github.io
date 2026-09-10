@@ -97,7 +97,7 @@ export function PhysicsCanvas({
     })
     let width = host.clientWidth
     let height = host.clientHeight
-    const ratio = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2)
+    const ratio = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 2)
 
     const render = Render.create({
       element: host,
@@ -141,7 +141,7 @@ export function PhysicsCanvas({
       })
     }
 
-    const labels = mobile ? physicsLabels.slice(0, 6) : [...physicsLabels]
+    const labels = mobile ? physicsLabels.slice(0, 4) : [...physicsLabels]
     const gap = mobile ? 8 : 14
 
     const airForElapsed = (elapsedSec: number) => {
@@ -246,11 +246,19 @@ export function PhysicsCanvas({
     const onTouch = (e: TouchEvent) => {
       const t = e.touches[0]
       if (!t) return
+      const el = e.target
+      if (el instanceof Element && el.closest('button, a, input, textarea, select, label')) {
+        return
+      }
       e.preventDefault()
       setPointerFromClient(t.clientX, t.clientY)
     }
 
     const onTouchEnd = (e: TouchEvent) => {
+      const el = e.target
+      if (el instanceof Element && el.closest('button, a, input, textarea, select, label')) {
+        return
+      }
       if (e.cancelable) e.preventDefault()
       if (!breakout) pointer.down = false
     }

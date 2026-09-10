@@ -220,6 +220,8 @@ export function Hero() {
             type="button"
             className={styles.hero__bait}
             onClick={phase === 'playing' ? abortGame : startGame}
+            onPointerDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
           >
             {phase === 'playing' ? t.hero.abort : t.hero.bait}
           </button>
