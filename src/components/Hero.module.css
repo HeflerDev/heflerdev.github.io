@@ -358,13 +358,24 @@
 }
 
 /* Light: amber name banner with cut-out type (negative space) */
-:global(html[data-theme='light']) .hero {
+:global(html[data-theme='light']) .hero:not(.heroGame) {
   grid-template-rows: minmax(180px, 32vh) minmax(0, 1fr);
   border-bottom-color: var(--accent-dim);
 }
 
+:global(html[data-theme='light']) .heroGame {
+  grid-template-rows: minmax(0, 1fr) 0fr;
+  height: 100svh;
+  min-height: 100svh;
+  border-bottom: none;
+}
+
 :global(html[data-theme='light']) .hero__rack {
   border-bottom-color: var(--accent-dim);
+}
+
+:global(html[data-theme='light']) .heroGame .hero__rack {
+  border-bottom-color: transparent;
 }
 
 :global(html[data-theme='light']) .hero__inner {
@@ -391,13 +402,15 @@
 :global(html[data-theme='light']) .hero__brand {
   letter-spacing: -0.055em;
   color: transparent;
-  -webkit-text-stroke: clamp(1.5px, 0.28vw, 3.5px) var(--bg-0);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: clamp(2px, 0.42vw, 4.5px) var(--bg-0);
   paint-order: stroke fill;
 }
 
 :global(html[data-theme='light']) .hero__brand em {
-  color: transparent;
-  -webkit-text-stroke: clamp(1.5px, 0.28vw, 3.5px) var(--bg-0);
+  color: #000;
+  -webkit-text-fill-color: #000;
+  -webkit-text-stroke: 0;
 }
 
 :global(html[data-theme='light']) .hero__headline {
@@ -450,7 +463,7 @@
 }
 
 @media (max-width: 768px) {
-  :global(html[data-theme='light']) .hero {
+  :global(html[data-theme='light']) .hero:not(.heroGame) {
     grid-template-rows: minmax(150px, 28vh) minmax(0, 1fr);
   }
 
@@ -459,6 +472,6 @@
   }
 
   :global(html[data-theme='light']) .hero__brand {
-    -webkit-text-stroke-width: 1.75px;
+    -webkit-text-stroke-width: 2.25px;
   }
 }
