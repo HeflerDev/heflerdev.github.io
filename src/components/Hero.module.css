@@ -401,10 +401,9 @@
 
 :global(html[data-theme='light']) .hero__brand {
   letter-spacing: -0.055em;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: clamp(2px, 0.42vw, 4.5px) var(--bg-0);
-  paint-order: stroke fill;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  -webkit-text-stroke: 0;
 }
 
 :global(html[data-theme='light']) .hero__brand em {
@@ -469,9 +468,5 @@
 
   :global(html[data-theme='light']) .hero__inner {
     padding: 2rem var(--gutter) 2.75rem;
-  }
-
-  :global(html[data-theme='light']) .hero__brand {
-    -webkit-text-stroke-width: 2.25px;
   }
 }
