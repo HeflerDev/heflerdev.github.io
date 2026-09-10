@@ -229,58 +229,76 @@ export function Hero() {
       </div>
 
       <div className={styles.hero__inner} aria-hidden={gameActive}>
-        <motion.p
-          className={styles.hero__meta}
-          initial={reduced ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {t.hero.meta.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </motion.p>
+        <div className={styles.hero__copy}>
+          <motion.p
+            className={styles.hero__meta}
+            initial={reduced ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {t.hero.meta.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </motion.p>
 
-        <motion.h1
-          className={styles.hero__brand}
-          initial={reduced ? false : { opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.08 }}
-        >
-          {site.brand.slice(0, -1)}
-          <em>{site.brand.slice(-1)}</em>
-        </motion.h1>
+          <motion.h1
+            className={styles.hero__brand}
+            initial={reduced ? false : { opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.08 }}
+          >
+            {site.brand.slice(0, -1)}
+            <em>{site.brand.slice(-1)}</em>
+          </motion.h1>
 
-        <motion.h2
-          className={styles.hero__headline}
-          initial={reduced ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.18 }}
-        >
-          {t.hero.headline}
-        </motion.h2>
+          <motion.h2
+            className={styles.hero__headline}
+            initial={reduced ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.18 }}
+          >
+            {t.hero.headline}
+          </motion.h2>
 
-        <motion.p
-          className={styles.hero__support}
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.28 }}
-        >
-          {t.hero.support}
-        </motion.p>
+          <motion.p
+            className={styles.hero__support}
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.28 }}
+          >
+            {t.hero.support}
+          </motion.p>
 
-        <motion.div
-          className={styles.hero__ctas}
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.36 }}
+          <motion.div
+            className={styles.hero__ctas}
+            initial={reduced ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.36 }}
+          >
+            <a className="btn" href="#projects">
+              {t.hero.ctaProjects}
+            </a>
+            <a className="btn btn--ghost" href="#contact">
+              {t.hero.ctaContact}
+            </a>
+          </motion.div>
+        </div>
+
+        <motion.figure
+          className={styles.hero__portrait}
+          initial={reduced ? false : { opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.16 }}
         >
-          <a className="btn" href="#projects">
-            {t.hero.ctaProjects}
-          </a>
-          <a className="btn btn--ghost" href="#contact">
-            {t.hero.ctaContact}
-          </a>
-        </motion.div>
+          <img
+            className={styles.hero__portraitImg}
+            src={site.author.image}
+            alt={site.author.fullName}
+            width={480}
+            height={480}
+            decoding="async"
+          />
+        </motion.figure>
       </div>
     </section>
     </>

@@ -255,12 +255,59 @@
   margin: 0 auto;
   width: 100%;
   padding: clamp(1.75rem, 4vw, 3rem) var(--gutter) clamp(2.5rem, 6vw, 4rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3rem);
   touch-action: pan-y;
   transition: opacity 0.35s ease, padding 0.45s ease;
   min-height: 0;
+}
+
+.hero__copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero__portrait {
+  margin: 0;
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(7.5rem, 22vw, 17.5rem);
+  aspect-ratio: 1;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-2);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--accent-rgb), 0.12),
+    0 0 0 1px rgba(var(--crt-ink), 0.2);
+  overflow: hidden;
+}
+
+.hero__portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(var(--crt-ink), 0.06) 2px,
+    rgba(var(--crt-ink), 0.06) 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+.hero__portraitImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  filter: contrast(1.05) saturate(0.92);
 }
 
 .hero__meta {
@@ -350,6 +397,14 @@
   .hero:not(.heroGame) .hero__inner {
     padding: 1.35rem var(--gutter) 2rem;
     justify-content: flex-end;
+    align-items: end;
+    gap: 1rem;
+  }
+
+  .hero__portrait {
+    width: clamp(5.5rem, 28vw, 7.5rem);
+    align-self: start;
+    margin-top: 0.35rem;
   }
 
   .hero__meta {
@@ -487,6 +542,24 @@
   background: var(--bg-0);
   color: var(--accent);
   border-color: var(--bg-0);
+}
+
+:global(html[data-theme='light']) .hero__portrait {
+  border-color: var(--bg-0);
+  background: color-mix(in srgb, var(--bg-0) 12%, transparent);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+:global(html[data-theme='light']) .hero__portrait::after {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.05) 2px,
+    rgba(0, 0, 0, 0.05) 3px
+  );
 }
 
 :global(html[data-theme='light']) .hero__static {
