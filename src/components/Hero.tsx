@@ -43,7 +43,9 @@ export function Hero() {
   const [isNewBest, setIsNewBest] = useState(false)
 
   const [portraitIndex, setPortraitIndex] = useState(0)
+  const [portraitGlitch, setPortraitGlitch] = useState(false)
   const portraits = site.author.portraits
+  const portraitBoot = useRef(true)
 
   const gameActive = phase === 'playing' || phase === 'closing'
   const mode = phase === 'playing' ? 'breakout' : 'idle'
@@ -55,6 +57,17 @@ export function Hero() {
     }, 4000)
     return () => window.clearInterval(id)
   }, [reduced, portraits.length])
+
+  useEffect(() => {
+    if (portraitBoot.current) {
+      portraitBoot.current = false
+      return
+    }
+    if (reduced) return
+    setPortraitGlitch(true)
+    const id = window.setTimeout(() => setPortraitGlitch(false), 320)
+    return () => window.clearTimeout(id)
+  }, [portraitIndex, reduced])
 
   // Wait for fullscreen expand / collapse so the arena size is correct
   const [arenaReady, setArenaReady] = useState(true)
@@ -298,6 +311,7 @@ export function Hero() {
 
         <motion.figure
           className={styles.hero__portrait}
+          data-glitch={portraitGlitch ? 'true' : undefined}
           initial={reduced ? false : { opacity: 0, x: 18, rotate: -6 }}
           animate={{ opacity: 1, x: 0, rotate: -3.5 }}
           transition={{ duration: 0.6, delay: 0.16 }}
@@ -318,6 +332,8 @@ export function Hero() {
               />
             ))}
           </div>
+          <span className={styles.hero__portraitStatic} aria-hidden="true" />
+          <span className={styles.hero__portraitSlice} aria-hidden="true" />
           <span className={styles.hero__portraitFrame} aria-hidden="true" />
           <figcaption className={styles.hero__portraitMeta} aria-hidden="true">
             <span>img/{String(portraitIndex + 1).padStart(2, '0')}</span>
