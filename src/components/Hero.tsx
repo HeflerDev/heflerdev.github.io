@@ -42,8 +42,20 @@ export function Hero() {
   const [best, setBest] = useState(0)
   const [isNewBest, setIsNewBest] = useState(false)
 
+  const [portraitIndex, setPortraitIndex] = useState(0)
+  const portraits = site.author.portraits
+
   const gameActive = phase === 'playing' || phase === 'closing'
   const mode = phase === 'playing' ? 'breakout' : 'idle'
+
+  useEffect(() => {
+    if (reduced || portraits.length < 2) return
+    const id = window.setInterval(() => {
+      setPortraitIndex((i) => (i + 1) % portraits.length)
+    }, 4000)
+    return () => window.clearInterval(id)
+  }, [reduced, portraits.length])
+
   // Wait for fullscreen expand / collapse so the arena size is correct
   const [arenaReady, setArenaReady] = useState(true)
   const arenaBootstrapped = useRef(false)
@@ -286,18 +298,37 @@ export function Hero() {
 
         <motion.figure
           className={styles.hero__portrait}
-          initial={reduced ? false : { opacity: 0, x: 18 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={reduced ? false : { opacity: 0, x: 18, rotate: -6 }}
+          animate={{ opacity: 1, x: 0, rotate: -3.5 }}
           transition={{ duration: 0.6, delay: 0.16 }}
         >
-          <img
-            className={styles.hero__portraitImg}
-            src={site.author.image}
-            alt={site.author.fullName}
-            width={480}
-            height={480}
-            decoding="async"
-          />
+          <span className={styles.hero__portraitGlow} aria-hidden="true" />
+          <div className={styles.hero__portraitStack}>
+            {portraits.map((src, i) => (
+              <img
+                key={src}
+                className={styles.hero__portraitImg}
+                data-active={i === portraitIndex ? 'true' : undefined}
+                src={src}
+                alt={i === portraitIndex ? site.author.fullName : ''}
+                width={640}
+                height={800}
+                decoding="async"
+                aria-hidden={i === portraitIndex ? undefined : true}
+              />
+            ))}
+          </div>
+          <span className={styles.hero__portraitFrame} aria-hidden="true" />
+          <figcaption className={styles.hero__portraitMeta} aria-hidden="true">
+            <span>img/{String(portraitIndex + 1).padStart(2, '0')}</span>
+            <span>
+              {portraitIndex === 0
+                ? 'raw'
+                : portraitIndex === 1
+                  ? 'anime'
+                  : 'gorillaz'}
+            </span>
+          </figcaption>
         </motion.figure>
       </div>
     </section>

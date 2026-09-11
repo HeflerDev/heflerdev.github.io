@@ -6,6 +6,11 @@ export const site = {
     name: 'Hefler',
     fullName: 'Henrique Figueiredo Hefler',
     image: '/images/profile_pic.jpeg',
+    portraits: [
+      '/images/profile_pic.jpeg',
+      '/images/perfil-anime.png',
+      '/images/perfil-gorillaz.png',
+    ],
     email: 'heflerdev@gmail.com',
     phone: '+55 51 98304-7170',
     phoneTel: '+5551983047170',
