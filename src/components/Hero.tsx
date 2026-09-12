@@ -24,6 +24,13 @@ function readBest(): number {
   }
 }
 
+function portraitLabel(src: string) {
+  const file = src.split('/').pop() ?? src
+  const stem = file.replace(/\.[^.]+$/, '')
+  if (stem === 'profile_pic') return 'raw'
+  return stem.replace(/^perfil-|^profile_/, '')
+}
+
 function writeBest(score: number) {
   try {
     localStorage.setItem(BEST_KEY, String(score))
@@ -337,13 +344,7 @@ export function Hero() {
           <span className={styles.hero__portraitFrame} aria-hidden="true" />
           <figcaption className={styles.hero__portraitMeta} aria-hidden="true">
             <span>img/{String(portraitIndex + 1).padStart(2, '0')}</span>
-            <span>
-              {portraitIndex === 0
-                ? 'raw'
-                : portraitIndex === 1
-                  ? 'anime'
-                  : 'gorillaz'}
-            </span>
+            <span>{portraitLabel(portraits[portraitIndex])}</span>
           </figcaption>
         </motion.figure>
       </div>
